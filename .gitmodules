@@ -1,0 +1,9 @@
+[submodule "apt"]
+	path = apt
+	url = https://github.com/opscode-cookbooks/apt.git
+[submodule "memcached"]
+	path = memcached
+	url = https://github.com/opscode-cookbooks/memcached.git
+[submodule "perl"]
+	path = perl
+	url = https://github.com/opscode-cookbooks/perl.git
