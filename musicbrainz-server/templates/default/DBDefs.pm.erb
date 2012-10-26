@@ -1,0 +1,163 @@
+package DBDefs;
+use strict;
+use warnings;
+
+use base 'DBDefs::Default';
+
+use MusicBrainz::Server::DatabaseConnectionFactory;
+use MusicBrainz::Server::Replication ':replication_type';
+
+<% unless @dbdefs.gpg_sign_key.nil? -%>
+    sub GPG_SIGN_KEY { '<%= @dbdefs.gpg_sign_key %>' }
+<%- end -%>
+
+<% unless @dbdefs.gpg_encrypt_key.nil? -%>
+    sub GPG_ENCRYPT_KEY { '<%= @dbdefs.gpg_encrypt_key %>' }
+<%- end -%>
+
+<% unless @dbdefs.recaptcha_public_key.nil? -%>
+    sub RECAPTCHA_PUBLIC_KEY { '<%= @dbdefs.recaptcha_public_key %>' }
+<%- end -%>
+
+<% unless @dbdefs.recaptcha_private_key.nil? -%>
+    sub RECAPTCHA_PRIVATE_KEY { '<%= @dbdefs.recaptcha_private_key %>' }
+<%- end -%>
+
+<% unless @dbdefs.google_analytics_code.nil? -%>
+    sub GOOGLE_ANALYTICS_CODE { '<%= @dbdefs.google_analytics_code %>' }
+<%- end -%>
+
+<% unless @dbdefs.google_custom_search.nil? -%>
+    sub GOOGLE_CUSTOM_SEARCH { '<%= @dbdefs.google_custom_search %>' }
+<%- end -%>
+
+<% unless @dbdefs.cover_art_archive_access_key.nil? -%>
+    sub COVER_ART_ARCHIVE_ACCESS_KEY { '<%= @dbdefs.cover_art_archive_access_key %>' }
+<%- end -%>
+
+<% unless @dbdefs.cover_art_archive_secret_key.nil? -%>
+    sub COVER_ART_ARCHIVE_SECRET_KEY { '<%= @dbdefs.cover_art_archive_secret_key %>' }
+<%- end -%>
+
+<% unless @dbdefs.beta_redirect_hostname.nil? -%>
+    sub BETA_REDIRECT_HOSTNAME { '<%= @dbdefs.beta_redirect_hostname %>' }
+<%- end -%>
+
+MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
+<% @dbdefs.databases.each do |database, config| %>
+     <%= database %> => {
+       database => '<%= config['database'] %>',
+       username => '<%= config['username'] %>',
+       host => '<%= config['host'] %>',
+       <% unless config['port'].nil? %>
+         port => <%= config['port'] %>
+       <% end %>
+     },
+<% end %>
+);
+
+<% unless @dbdefs.db_schema_sequence.nil? -%>
+    sub DB_SCHEMA_SEQUENCE { <%= @dbdefs.db_schema_sequence %> }
+<%- end -%>
+
+<% unless @dbdefs.replication_type.nil? -%>
+    sub REPLICATION_TYPE { <%= @dbdefs.replication_type.to_s.upcase %> }
+<%- end -%>
+
+<% unless @dbdefs.web_server.nil? -%>
+    sub WEB_SERVER { '<%= @dbdefs.web_server %>' }
+<%- end -%>
+
+<% unless @dbdefs.web_server_used_in_email.nil? -%>
+    sub WEB_SERVER_USED_IN_EMAIL { '<%= @dbdefs.web_server_used_in_email %>' }
+<%- end -%>
+
+<% unless @dbdefs.lucene_server.nil? -%>
+    sub LUCENE_SERVER { '<%= @dbdefs.lucene_server %>' }
+<%- end -%>
+
+<% unless @dbdefs.smtp_secret_checksum.nil? -%>
+    sub SMTP_SECRET_CHECKSUM { '<%= @dbdefs.smtp_secret_checksum %>' }
+<%- end -%>
+
+sub DB_STAGING_SERVER { <%= (@dbdefs.db_staging_server && 1) || 0 %> }
+
+sub DB_STAGING_SERVER_SANITIZED { <%= (@dbdefs.db_staging_server_sanitized && 1) || 0 %> }
+
+sub MEMCACHED_SERVERS {
+  [
+<% @dbdefs.memcached_servers.each do |server| %>
+     '<%= server %>',
+<% end %>
+  ]
+}
+
+sub DATASTORE_REDIS_ARGS {
+    my $self = shift;
+    return {
+        prefix => $self->MEMCACHED_NAMESPACE(),
+        database => 0,
+        test_database => 1,
+        redis_new_args => {
+            server => '<%= @dbdefs.datastore_redis_args.server %>',
+            reconnect => 60,
+            encoding => undef,
+        }
+    };
+};
+
+<% unless @dbdefs.ratelimit_server.nil? -%>
+    sub RATELIMIT_SERVER { '<%= @dbdefs.ratelimit_server %>' }
+<%- end -%>
+
+<% if @dbdefs.minify_javascript %>
+    sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
+<% end %>
+
+<% if @dbdefs.minify_css %>
+    sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
+<% end %>
+
+<% unless @dbdefs.session_cookie.nil? -%>
+    sub SESSION_COOKIE { '<%= @dbdefs.session_cookie %>' }
+<%- end -%>
+
+<% unless @dbdefs.amazon_associate_tag.nil? -%>
+    sub AMAZON_ASSOCIATE_TAG { '<%= @dbdefs.amazon_associate_tag %>' }
+<%- end -%>
+
+<% unless @dbdefs.aws_public.nil? -%>
+    sub AWS_PUBLIC { '<%= @dbdefs.aws_public %>' }
+<%- end -%>
+
+<% unless @dbdefs.aws_private.nil? -%>
+    sub AWS_PRIVATE { '<%= @dbdefs.aws_private %>' }
+<%- end -%>
+
+sub CATALYST_DEBUG { <%= (@dbdefs.catalyst_debug && 1) || 0 %> }
+
+sub DEVELOPMENT_SERVER { <%= (@dbdefs.development_server && 1) || 0 %> }
+
+<% unless @dbdefs['email_bugs'].nil? -%>
+    sub EMAIL_BUGS { '<%= @dbdefs.email_bugs %>' }
+<%- end -%>
+
+<% if @dbdefs.auto_restart %>
+    sub AUTO_RESTART {
+        return {
+            active => 1,
+            check_each => 30,
+            max_bits => 350000000,
+            min_handled_requests => 50
+        }
+    }
+<% end %>
+
+<% unless @dbdefs['max_request_time'].nil? %>
+    sub DETERMINE_MAX_REQUEST_TIME {
+        my (undef, $req) = @_;
+        return <%= @dbdefs['max_request_time'] %>;
+    }
+<% end %>
+
+1;
