@@ -1,8 +1,5 @@
 package "postgresql-9.1"
-
-service "postgresql" do
-  action :start
-end
+package "postgresql-contrib-9.1"
 
 apt_repository "musicbrainz" do
   uri "http://ppa.launchpad.net/oliver-charles/musicbrainz/ubuntu"
@@ -14,3 +11,12 @@ end
 
 package "postgresql-musicbrainz-collate"
 package "postgresql-musicbrainz-unaccent"
+
+cookbook_file "/etc/postgresql/9.1/main/pg_hba.conf" do
+  source "pg_hba.conf"
+  owner "postgres"
+end
+
+service "postgresql" do
+  action [:start,:reload]
+end

@@ -5,6 +5,8 @@ user "musicbrainz" do
   supports :manage_home => true
 end
 
+package "git"
+
 git "/home/musicbrainz/musicbrainz-server" do
   repository "http://github.com/metabrainz/musicbrainz-server.git"
   revision "master"
@@ -24,9 +26,6 @@ apt_repository "musicbrainz" do
   keyserver "keyserver.ubuntu.com"
   key "E4EB3B02925D4F66"
 end
-
-package "git"
-package "liblocal-lib-perl"
 
 package "build-essential"
 package "libxml2-dev"
@@ -84,6 +83,7 @@ package "libintl-perl"
 package "libio-all-perl"
 package "libjson-perl"
 package "libjson-xs-perl"
+package "liblist-allutils-perl"
 package "liblist-moreutils-perl"
 package "liblist-utilsby-perl"
 package "liblog-dispatch-perl"
