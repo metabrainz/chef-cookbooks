@@ -1,3 +1,22 @@
+user "musicbrainz" do
+  action :create
+  home "/home/musicbrainz"
+  shell "/bin/bash"
+  supports :manage_home => true
+end
+
+git "/home/musicbrainz/musicbrainz-server" do
+  repository "http://github.com/metabrainz/musicbrainz-server.git"
+  revision "master"
+  action :sync
+  user "musicbrainz"
+end
+
+cookbook_file "/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm" do
+  source "DBDefs.pm"
+  owner "musicbrainz"
+end
+
 apt_repository "musicbrainz" do
   uri "http://ppa.launchpad.net/oliver-charles/musicbrainz/ubuntu"
   distribution node['lsb']['codename']
@@ -18,29 +37,6 @@ package "libdb-dev"
 package "daemontools"
 package "daemontools-run"
 package "svtools"
-
-service "svscan" do
-  action :start
-  provider Chef::Provider::Service::Upstart
-end
-
-link "/home/musicbrainz/musicbrainz-server/admin/nginx/service/mb_server" do
-  to "/home/musicbrainz/musicbrainz-server"
-  owner "musicbrainz"
-end
-
-daemontools_service "musicbrainz-server" do
-  directory "/home/musicbrainz/musicbrainz-server/admin/nginx/service/"
-  template false
-  action [:enable,:start]
-end
-
-script "compile_resources" do
-  user "musicbrainz"
-  interpreter "bash"
-  cwd "/home/musicbrainz/musicbrainz-server"
-  code "./script/compile_resources.pl"
-end
 
 package "libalgorithm-diff-perl"
 package "libalgorithm-merge-perl"
@@ -131,17 +127,25 @@ package "libxml-semanticdiff-perl"
 package "libxml-simple-perl"
 package "libxml-xpath-perl"
 
-user "musicbrainz" do
-  action :create
-  home "/home/musicbrainz"
-  shell "/bin/bash"
-  supports :manage_home => true
+service "svscan" do
+  action :start
+  provider Chef::Provider::Service::Upstart
 end
 
-git "/home/musicbrainz/musicbrainz-server" do
-  repository "http://github.com/metabrainz/musicbrainz-server.git"
-  revision "master"
-  action :sync
+link "/home/musicbrainz/musicbrainz-server/admin/nginx/service/mb_server" do
+  to "/home/musicbrainz/musicbrainz-server"
+  owner "musicbrainz"
+end
+
+daemontools_service "musicbrainz-server" do
+  directory "/home/musicbrainz/musicbrainz-server/admin/nginx/service/"
+  template false
+  action [:enable,:start]
+end
+
+script "compile_resources" do
   user "musicbrainz"
+  interpreter "bash"
+  cwd "/home/musicbrainz/musicbrainz-server"
+  code "./script/compile_resources.pl"
 end
-
