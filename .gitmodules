@@ -7,3 +7,12 @@
 [submodule "perl"]
 	path = perl
 	url = https://github.com/opscode-cookbooks/perl.git
+[submodule "daemontools"]
+	path = daemontools
+	url = http://github.com/opscode-cookbooks/daemontools.git
+[submodule "ucspi-tcp"]
+	path = ucspi-tcp
+	url = https://github.com/opscode-cookbooks/ucspi-tcp.git
+[submodule "build-essential"]
+	path = build-essential
+	url = https://github.com/opscode-cookbooks/build-essential.git
