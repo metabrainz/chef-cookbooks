@@ -8,7 +8,7 @@ end
 package "git"
 
 git "/home/musicbrainz/musicbrainz-server" do
-  repository "http://github.com/metabrainz/musicbrainz-server.git"
+  repository "git://github.com/metabrainz/musicbrainz-server.git"
   revision "master"
   action :sync
   user "musicbrainz"
