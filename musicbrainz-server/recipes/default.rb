@@ -12,6 +12,7 @@ git "/home/musicbrainz/musicbrainz-server" do
   revision "master"
   action :sync
   user "musicbrainz"
+  revision node['musicbrainz-server']['revision']
 end
 
 cookbook_file "/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm" do
@@ -69,6 +70,7 @@ package "libdbi-perl"
 package "libdbix-connector-perl"
 package "libdigest-hmac-perl"
 package "libdigest-md5-file-perl"
+package "libdigest-sha-perl"
 package "libemail-address-perl"
 package "libemail-mime-creator-perl"
 package "libemail-mime-perl"
@@ -132,15 +134,15 @@ service "svscan" do
   provider Chef::Provider::Service::Upstart
 end
 
-link "/home/musicbrainz/musicbrainz-server/admin/nginx/service/mb_server" do
-  to "/home/musicbrainz/musicbrainz-server"
-  owner "musicbrainz"
-end
-
 daemontools_service "musicbrainz-server" do
-  directory "/home/musicbrainz/musicbrainz-server/admin/nginx/service/"
+  directory "/home/musicbrainz/musicbrainz-server/admin/nginx/service-standalone/"
   template false
   action [:enable,:start]
+end
+
+link "/etc/service/musicbrainz-server/mb_server" do
+  to "/home/musicbrainz/musicbrainz-server"
+  owner "musicbrainz"
 end
 
 script "compile_resources" do
