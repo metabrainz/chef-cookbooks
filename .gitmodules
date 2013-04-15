@@ -16,3 +16,12 @@
 [submodule "build-essential"]
 	path = build-essential
 	url = https://github.com/opscode-cookbooks/build-essential.git
+[submodule "rabbitmq"]
+	path = rabbitmq
+	url = https://github.com/opscode-cookbooks/rabbitmq.git
+[submodule "erlang"]
+	path = erlang
+	url = https://github.com/opscode-cookbooks/erlang.git
+[submodule "cabal"]
+	path = cabal
+	url = https://github.com/apiengine/chef-cabal.git
