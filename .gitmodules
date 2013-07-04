@@ -1,0 +1,24 @@
+[submodule "apt"]
+	path = apt
+	url = https://github.com/opscode-cookbooks/apt.git
+[submodule "daemontools"]
+	path = daemontools
+	url = http://github.com/opscode-cookbooks/daemontools.git
+[submodule "ucspi-tcp"]
+	path = ucspi-tcp
+	url = https://github.com/opscode-cookbooks/ucspi-tcp.git
+[submodule "build-essential"]
+	path = build-essential
+	url = https://github.com/opscode-cookbooks/build-essential.git
+[submodule "nginx"]
+	path = nginx
+	url = https://github.com/opscode-cookbooks/nginx.git
+[submodule "ohai"]
+	path = ohai
+	url = https://github.com/opscode-cookbooks/ohai.git
+[submodule "runit"]
+	path = runit
+	url = https://github.com/opscode-cookbooks/runit.git
+[submodule "yum"]
+	path = yum
+	url = https://github.com/opscode-cookbooks/yum.git
