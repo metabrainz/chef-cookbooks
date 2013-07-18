@@ -1,0 +1,7 @@
+#!/usr/bin
+
+# TODO
+# Add option for freebd indexing
+# Handle moving indexes out of the way
+
+java -jar jar/index.jar --db-user musicbrainz --db-name musicbrainz --indexes-dir=data/new
