@@ -1,7 +1,5 @@
-#!/usr/bin
+#!/bin/bash
 
-# TODO
-# Add option for freebd indexing
-# Handle moving indexes out of the way
-
-java -jar jar/index.jar --db-user musicbrainz --db-name musicbrainz --indexes-dir=data/new
+cd /home/search
+read -p "Press ENTER to erase current seach indexes (if any) and build new indexes or type ^C to abort" dummy
+java -jar jar/index.jar --db-user musicbrainz --db-name musicbrainz --indexes-dir indexdata --indexes area,artist,releasegroup,release,recording,label,work,tag,annotation,cdstub

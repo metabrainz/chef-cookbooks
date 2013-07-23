@@ -5,46 +5,9 @@ user "search" do
   supports :manage_home => true
 end
 
-package "openjdk-7-jre"
-package "mvn"
-package "subversion"
+package "openjdk-7-jdk"
 
-subversion "MMD Schema" do
-  repository "http://svn.musicbrainz.org/mmd-schema/trunk"
-  revision "13700"
-  destination "/home/search/mmd-schema"
-  action :sync
-end
-
-subversion "Search Server" do
-  repository "http://svn.musicbrainz.org/mmd-schema/trunk"
-  revision "13700"
-  destination "/home/search/search-server"
-  action :sync
-end
-
-directory "/home/search/data" do
-  owner "search"
-  group "search"
-  mode "0755"
-  action :create
-end
-
-directory "/home/search/data/new" do
-  owner "search"
-  group "search"
-  mode "0755"
-  action :create
-end
-
-directory "/home/search/data/cur" do
-  owner "search"
-  group "search"
-  mode "0755"
-  action :create
-end
-
-directory "/home/search/data/old" do
+directory "/home/search/indexdata" do
   owner "search"
   group "search"
   mode "0755"
@@ -65,11 +28,11 @@ directory "/home/search/bin" do
   action :create
 end
 
-#cookbook_file "/home/search/jar/index.jar" do
-#  source "index.jar"
-# group "search"
-# owner "search"
-# mode "0644"
+remote_file "/home/search/jar/index.jar" do
+  source "http://ftp.musicbrainz.org/pub/musicbrainz/search/index/index.jar" 
+  group "search"
+  owner "search"
+  mode "0644"
 end
 
 cookbook_file "/home/search/bin/reindex" do
@@ -80,3 +43,22 @@ cookbook_file "/home/search/bin/reindex" do
 end
 
 package "jetty"
+
+remote_file "/var/lib/jetty/webapps/root.war" do
+  source "http://ftp.musicbrainz.org/pub/musicbrainz/search/servlet/searchserver.war" 
+  group "jetty"
+  owner "jetty"
+  mode "0644"
+end
+
+cookbook_file "/etc/default/jetty" do
+  source "jetty.default"
+  group "root"
+  owner "root"
+  mode "0755"
+end
+
+service "jetty" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start, :reload ]
+end
