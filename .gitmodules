@@ -1,6 +1,9 @@
 [submodule "apt"]
 	path = apt
 	url = https://github.com/opscode-cookbooks/apt.git
+[submodule "memcached"]
+	path = memcached
+	url = https://github.com/opscode-cookbooks/memcached.git
 [submodule "daemontools"]
 	path = daemontools
 	url = http://github.com/opscode-cookbooks/daemontools.git
@@ -22,3 +25,6 @@
 [submodule "yum"]
 	path = yum
 	url = https://github.com/opscode-cookbooks/yum.git
+[submodule "redis"]
+	path = redis
+	url = https://github.com/ctrabold/chef-redis.git
