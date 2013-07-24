@@ -89,13 +89,9 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     sub SMTP_SECRET_CHECKSUM { '<%= @dbdefs['smtp_secret_checksum'] %>' }
 <%- end -%>
 
-<% if @dbdefs['staging_server'] %>
 sub DB_STAGING_SERVER { <%= (@dbdefs['db_staging_server'] && 1) || 0 %> }
-<% end %>
 
-<% if @dbdefs['staging_server_sanitized'] %>
 sub DB_STAGING_SERVER_SANITIZED { <%= (@dbdefs['db_staging_server_sanitized'] && 1) || 0 %> }
-<% end %>
 
 <% if @dbdefs['memcached_servers'] %>
 sub MEMCACHED_SERVERS {
@@ -115,7 +111,7 @@ sub DATASTORE_REDIS_ARGS {
         database => 0,
         test_database => 1,
         redis_new_args => {
-            server => '<%= @dbdefs['datastore_redis_args.server'] %>',
+            server => '<%= @dbdefs['datastore_redis_args']['server'] %>',
             reconnect => 60,
             encoding => undef,
         }

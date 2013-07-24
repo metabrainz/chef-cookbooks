@@ -1,6 +1,7 @@
 include_recipe "daemontools"
 include_recipe "musicbrainz-server::install"
 include_recipe "nginx"
+include_recipe "nodejs"
 
 package "libcatalyst-plugin-autorestart-perl"
 package "libcatalyst-plugin-errorcatcher-perl"
@@ -23,6 +24,14 @@ end
 link "/etc/service/musicbrainz-server/mb_server" do
   to "/home/musicbrainz/musicbrainz-server"
   owner "musicbrainz"
+end
+
+script "npm install" do
+  user "musicbrainz"
+  interpreter "bash"
+  cwd "/home/musicbrainz/musicbrainz-server"
+  code "HOME=/home/musicbrainz npm install"
+  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
 
 script "compile_resources" do
