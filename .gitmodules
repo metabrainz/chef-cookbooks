@@ -28,3 +28,6 @@
 [submodule "redis"]
 	path = redis
 	url = https://github.com/ctrabold/chef-redis.git
+[submodule "sudo"]
+	path = sudo
+	url = https://github.com/opscode-cookbooks/sudo

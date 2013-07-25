@@ -33,6 +33,7 @@ remote_file "/home/search/jar/index.jar" do
   group "search"
   owner "search"
   mode "0644"
+  action :create_if_missing
 end
 
 cookbook_file "/home/search/bin/reindex" do
@@ -44,11 +45,26 @@ end
 
 package "jetty"
 
-remote_file "/var/lib/jetty/webapps/root.war" do
+remote_file "/var/lib/jetty/webapps/ROOT.war" do
   source "http://ftp.musicbrainz.org/pub/musicbrainz/search/servlet/searchserver.war" 
   group "jetty"
   owner "jetty"
   mode "0644"
+  action :create_if_missing
+end
+
+directory "/var/lib/jetty/webapps/root" do
+  owner "jetty"
+  group "jetty"
+  mode "0755"
+  action :create
+end
+
+execute "jar" do
+  cwd "/var/lib/jetty/webapps/root"
+  command "jar -xf ../ROOT.war"
+  creates "/var/lib/jetty/webapps/root/META-INF"
+  action :run
 end
 
 cookbook_file "/etc/default/jetty" do
@@ -60,5 +76,5 @@ end
 
 service "jetty" do
   supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start, :reload ]
+  action [ :enable, :start ]
 end
