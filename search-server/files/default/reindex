@@ -2,4 +2,18 @@
 
 cd /home/search
 read -p "Press ENTER to erase current seach indexes (if any) and build new indexes or type ^C to abort" dummy
+
+echo `date`: Starting index build
+echo `date`: Removing old indexes
+rm -rf /home/search/indexdata/*
+
+echo `date`: Shutting down jetty
+sudo /etc/init.d/jetty stop
+
+echo `date`: Building indexes
 java -Xmx256M -jar jar/index.jar --db-user musicbrainz --db-name musicbrainz --indexes-dir indexdata --indexes area,artist,releasegroup,release,recording,label,work,tag,annotation,cdstub
+
+echo `date`: Starting jetty
+sudo /etc/init.d/jetty start
+
+echo `date`: Building indexes complete

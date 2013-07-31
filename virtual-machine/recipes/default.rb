@@ -17,3 +17,8 @@ sudo "vm" do
   user "vm"
   nopasswd true
 end
+
+sudo "search" do
+  user "search"
+  nopasswd true
+end
