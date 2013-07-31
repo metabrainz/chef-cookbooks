@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -e /home/musicbrainz/lock/no-background-replication.lock ]
+then
+    exit 0
+fi
+
+/home/musicbrainz/musicbrainz-server/admin/replication/LoadReplicationChanges
+
+exit 0

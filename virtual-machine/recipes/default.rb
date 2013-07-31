@@ -22,3 +22,24 @@ sudo "search" do
   user "search"
   nopasswd true
 end
+
+directory "/home/vm/bin" do
+  owner "vm"
+  group "vm"
+  mode "0755"
+  action :create
+end
+
+cookbook_file "/home/vm/bin/replicate" do
+  source "replicate"
+  group "vm"
+  owner "vm"
+  mode "0755"
+end
+
+cookbook_file "/home/vm/bin/reindex" do
+  source "reindex"
+  group "vm"
+  owner "vm"
+  mode "0755"
+end
