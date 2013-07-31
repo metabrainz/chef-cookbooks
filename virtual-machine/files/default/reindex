@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Call the search reindex script as the search user
-sudo -u search bin/reindex
+sudo su - search bin/reindex
