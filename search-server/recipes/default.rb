@@ -74,6 +74,14 @@ cookbook_file "/etc/default/jetty" do
   mode "0755"
 end
 
+bash "java_home" do
+  user "root"
+  cwd "/tmp"
+  code <<-EOH
+  echo "JAVA_HOME="`readlink -f $( dirname $( readlink -f $( which java ) ) )/../..` >> /etc/default/jetty
+  EOH
+end
+
 service "jetty" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]

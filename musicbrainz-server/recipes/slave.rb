@@ -40,4 +40,5 @@ cron "replicate" do
   minute "15"
   command "perl /home/musicbrainz/bin/check-replication-lock"
   action :create
+  user "musicbrainz"
 end
