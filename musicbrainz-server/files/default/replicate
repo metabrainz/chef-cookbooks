@@ -1,0 +1,22 @@
+#!/bin/sh
+
+case "$1" in
+    now)
+	/home/musicbrainz/musicbrainz-server/admin/replication/LoadReplicationChanges
+        ;;
+    start)
+        echo "Background replication is enabled and will happen hourly."
+	rm -f /home/musicbrainz/lock/no-background-replication.lock
+        ;;
+    stop)
+        echo "Background replication is disabled."
+	touch /home/musicbrainz/lock/no-background-replication.lock
+        ;;
+    *)
+        echo "Usage: $0 {now|start|stop}"
+        exit 1
+        ;;
+esac
+
+exit 0
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Call the replicate script in the musicbrainz account
+sudo su - musicbrainz bin/replicate $1

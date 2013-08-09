@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Create the postgresql.conf file based on current memory settings
+
+case "$1" in
+    start)
+	/usr/local/bin/tune_pg.py /etc/postgresql/9.1/main/postgresql.conf.in /etc/postgresql/9.1/main/postgresql.conf
+        ;;
+    *)
+        echo "Usage: $0 {start}"
+        exit 1
+        ;;
+esac
+
+exit 0
+
