@@ -5,6 +5,7 @@ chef_gem "ruby-shadow" do
   action :install
 end
 
+# Setup the user 'vm', with password 'musicbrainz'
 user "vm" do
   action :create
   home "/home/vm"
