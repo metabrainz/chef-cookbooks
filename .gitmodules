@@ -31,3 +31,6 @@
 [submodule "sudo"]
 	path = sudo
 	url = https://github.com/opscode-cookbooks/sudo
+[submodule "nodejs"]
+	path = nodejs
+	url = https://github.com/mdxp/nodejs-cookbook.git
