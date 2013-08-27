@@ -20,6 +20,7 @@ daemontools_service "musicbrainz-server" do
   action [:enable,:start]
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]" 
   subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
+  log true
 end
 
 link "/etc/service/musicbrainz-server/mb_server" do

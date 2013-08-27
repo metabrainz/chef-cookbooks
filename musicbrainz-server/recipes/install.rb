@@ -12,6 +12,7 @@ git "/home/musicbrainz/musicbrainz-server" do
   action :sync
   user "musicbrainz"
   revision node['musicbrainz-server']['revision']
+  enable_submodules true
 end
 
 template "/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm" do
