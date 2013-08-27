@@ -15,3 +15,10 @@ logster_log "/var/log/nginx/001-musicbrainz.access.log" do
     parser "musicbrainz.logster.NginxStatus.NginxStatus"
     python_path ["/home/musicbrainz/logster"]
 end
+
+# logster needs to be able to read nginx logs
+group "adm" do
+    append true
+    action :modify
+    members "logster"
+end
