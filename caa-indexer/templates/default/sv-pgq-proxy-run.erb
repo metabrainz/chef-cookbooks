@@ -1,0 +1,7 @@
+#!/bin/bash
+echo `date` : Starting pgq-proxy
+exec 2>&1
+set -e
+umask 022
+cd CAA-indexer
+exec setuidgid caaindexer perl -Ilib ./pgq-proxy.pl
