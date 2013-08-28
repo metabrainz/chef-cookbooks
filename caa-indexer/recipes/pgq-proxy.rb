@@ -12,3 +12,7 @@ daemontools_service "pgq-proxy" do
   action [:enable, :start]
   log true
 end
+
+link "/home/caaindexer/pgq-proxy/CAA-indexer" do
+  to "/home/caaindexer/CAA-indexer"
+end
