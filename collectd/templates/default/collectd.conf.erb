@@ -1,0 +1,21 @@
+Hostname <%= node['hostname'] %>
+
+LoadPlugin syslog
+
+LoadPlugin cpu
+LoadPlugin disk
+LoadPlugin interface
+LoadPlugin load
+LoadPlugin memory
+LoadPlugin network
+LoadPlugin processes
+LoadPlugin swap
+LoadPlugin uptime
+LoadPlugin write_graphite
+
+<Plugin write_graphite>
+  <Node "<%= @graphite['host'] %>">
+    Host "<%= @graphite['host'] %>"
+    Port "2003"
+  </Node>
+</Plugin>
