@@ -43,3 +43,12 @@
 [submodule "erlang"]
 	path = erlang
 	url = git://github.com/opscode-cookbooks/erlang.git
+[submodule "graphite"]
+	path = graphite
+	url = https://github.com/hw-cookbooks/graphite.git
+[submodule "python"]
+	path = python
+	url = https://github.com/opscode-cookbooks/python
+[submodule "apache2"]
+	path = apache2
+	url = https://github.com/opscode-cookbooks/apache2.git
