@@ -37,3 +37,9 @@
 [submodule "logster"]
 	path = logster
 	url = git://github.com/metabrainz/chef-logster.git
+[submodule "rabbitmq"]
+	path = rabbitmq
+	url = git://github.com/opscode-cookbooks/rabbitmq.git
+[submodule "erlang"]
+	path = erlang
+	url = git://github.com/opscode-cookbooks/erlang.git

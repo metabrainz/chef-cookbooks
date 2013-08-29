@@ -1,0 +1,16 @@
+[database]
+host = <%= @database['host'] %>
+port = <%= @database['port'] or 5432 %>
+user = <%= @database['user'] %>
+database = <%= @database['database'] %>
+
+[caa]
+public_key = <%= @caa['public_key'] %>
+private_key = <%= @caa['private_key'] %>
+
+[rabbitmq]
+host = <%= @rabbitmq['host'] %>
+port = <%= @rabbitmq['port'] or 5672 %>
+user = <%= @rabbitmq['user'] %>
+pass = <%= @rabbitmq['password'] %>
+vhost = <%= @rabbitmq['vhost'] %>
