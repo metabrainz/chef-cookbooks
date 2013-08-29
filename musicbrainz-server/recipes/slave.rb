@@ -1,6 +1,5 @@
 include_recipe "musicbrainz-server::install"
 
-
 directory "/home/musicbrainz/bin" do
   owner "musicbrainz"
   group "musicbrainz"
