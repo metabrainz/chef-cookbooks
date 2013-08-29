@@ -198,4 +198,6 @@ sub DEVELOPMENT_SERVER { <%= (@dbdefs['development_server'] && 1) || 0 %> }
     }
 <% end %>
 
+sub SSL_REDIRECTS_ENABLED { <%= (@dbdefs['ssl_redirects_enabled'] && 1) || 0 %> }
+
 1;
