@@ -55,3 +55,7 @@ nginx_site "musicbrainz" do
   subscribes :enable, "template[/etc/nginx/sites-available/musicbrainz]";
 end
 
+link "/home/musicbrainz/musicbrainz-server/root/robots.txt" do
+  action :create
+  to "/home/musicbrainz/musicbrainz-server/root/robots.txt.production"
+end
