@@ -77,6 +77,10 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     sub WEB_SERVER { '<%= @dbdefs['web_server'] %>' }
 <%- end -%>
 
+<% if @dbdefs['web_server_ssl'] -%>
+    sub WEB_SERVER_SSL { '<%= @dbdefs['web_server_ssl'] %>' }
+<%- end -%>
+
 <% if @dbdefs['web_server_used_in_email'] -%>
     sub WEB_SERVER_USED_IN_EMAIL { '<%= @dbdefs['web_server_used_in_email'] %>' }
 <%- end -%>
