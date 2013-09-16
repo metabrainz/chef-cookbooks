@@ -6,10 +6,8 @@ cd mb_server
 umask 022
 exec \
     setuidgid musicbrainz \
-        plackup -Ilib \
-            -s FCGI \
+        starman -Ilib \
+            --preload-app \
             -E deployment \
-            --port 55901 \
-            --nproc <%= @variables[:nproc] || 5 %> \
-            --pid fcgi.pid \
-            --keep-stderr=1
+            --listen musicbrainz-server.socket \
+            --workers <%= @variables[:nproc] || 5 %>
