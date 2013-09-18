@@ -48,6 +48,7 @@ template "/etc/nginx/sites-available/musicbrainz" do
   source "nginx.conf.erb"
   user "root"
   variables :server_name => node['musicbrainz-server']['hostname'];
+  notifies :reload, "service[nginx]"
 end
 
 nginx_site "musicbrainz" do
