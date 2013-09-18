@@ -5,9 +5,10 @@ set -e
 cd mb_server
 umask 022
 exec \
-    setuidgid musicbrainz \
-        starman -Ilib \
-            --preload-app \
-            -E deployment \
-            --listen musicbrainz-server.socket \
-            --workers <%= @variables[:nproc] || 5 %>
+    starman -Ilib \
+        --preload-app \
+        -E deployment \
+        --listen musicbrainz-server.socket \
+        --workers <%= @variables[:nproc] || 5 %> \
+        --user www-data \
+        --group www-data
