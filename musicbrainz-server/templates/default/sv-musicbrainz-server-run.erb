@@ -5,7 +5,7 @@ set -e
 cd mb_server
 umask 022
 exec \
-    starman -Ilib \
+    env MUSICBRAINZ_USE_PROXY=1 starman -Ilib \
         --preload-app \
         -E deployment \
         --listen musicbrainz-server.socket \
