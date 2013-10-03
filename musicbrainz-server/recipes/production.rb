@@ -5,8 +5,8 @@ include_recipe "nodejs"
 
 package "libcatalyst-plugin-autorestart-perl"
 package "libcatalyst-plugin-errorcatcher-perl"
-package "libfcgi-procmanager-perl"
 package "libjavascript-closure-perl"
+package "starman"
 
 service "svscan" do
   action :start
@@ -48,6 +48,7 @@ template "/etc/nginx/sites-available/musicbrainz" do
   source "nginx.conf.erb"
   user "root"
   variables :server_name => node['musicbrainz-server']['hostname'];
+  notifies :reload, "service[nginx]"
 end
 
 nginx_site "musicbrainz" do

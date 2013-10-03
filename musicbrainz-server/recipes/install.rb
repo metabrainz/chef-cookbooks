@@ -5,6 +5,12 @@ user "musicbrainz" do
   supports :manage_home => true
 end
 
+group "www-data" do
+  action :modify
+  append true
+  members [ "musicbrainz" ]
+end
+
 package "git"
 git "/home/musicbrainz/musicbrainz-server" do
   repository "git://github.com/metabrainz/musicbrainz-server.git"
