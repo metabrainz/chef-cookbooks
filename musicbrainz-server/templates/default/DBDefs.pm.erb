@@ -95,6 +95,8 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 
 sub DB_STAGING_SERVER { <%= (@dbdefs['db_staging_server'] && 1) || 0 %> }
 
+sub DB_READ_ONLY { <%= (@dbdefs['db_read_only'] && 1) || 0 %> }
+
 sub DB_STAGING_SERVER_SANITIZED { <%= (@dbdefs['db_staging_server_sanitized'] && 1) || 0 %> }
 
 <% if @dbdefs['memcached_servers'] %>
