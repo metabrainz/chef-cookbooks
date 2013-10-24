@@ -1,3 +1,5 @@
+include_recipe "apt"
+
 package "postgresql-9.1"
 package "postgresql-contrib-9.1"
 
