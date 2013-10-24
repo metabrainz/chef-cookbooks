@@ -1,0 +1,14 @@
+[database]
+user=<%= @config[:database][:user] %>
+name=<%= @config[:database][:name] %>
+host=<%= @config[:database][:host] %>
+port=<%= @config[:database][:port] %>
+musicbrainz_schema=<%= @config[:database][:mb_schema] %>
+coverart_schema=<%= @config[:database][:caa_schema] %>
+
+[listen]
+address=0.0.0.0
+port=<%= @config[:port] %>
+
+[s3]
+prefix=//archive.org/download
