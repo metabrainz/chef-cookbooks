@@ -1,6 +1,8 @@
 include_recipe "sudo"
 package "libshadow-ruby1.8"
 
+package("build-essential").run_action(:install)
+
 chef_gem "ruby-shadow" do
   action :install
 end
