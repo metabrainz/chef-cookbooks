@@ -22,8 +22,8 @@ rabbitmq_user node['monitoring']['rabbitmq']['user'] do
   permissions "'' '' .*"
 end
 
-cron "rabbitmq"
+cron "rabbitmq" do
   mailto "root"
   user "monitoring"
-  command "gamekeeper measure --uri=http://#{node['monitoring']['rabbitmq']['user']}:#{node['monitoring']['rabbitmq']['password']}@#{node['monitoring']['rabbitmq']['host']}:#{node['monitoring']['rabbitmq']['port']}/ --sink=Graphite,#{node['monitoring']['graphite']['host']},#{node['monitoring']['graphite']['port']}
+  command "gamekeeper measure --uri=http://#{node['monitoring']['rabbitmq']['user']}:#{node['monitoring']['rabbitmq']['password']}@#{node['monitoring']['rabbitmq']['host']}:#{node['monitoring']['rabbitmq']['port']}/ --sink=Graphite,#{node['monitoring']['graphite']['host']},#{node['monitoring']['graphite']['port']}"
 end
