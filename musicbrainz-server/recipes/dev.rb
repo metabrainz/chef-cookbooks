@@ -7,7 +7,7 @@ service "svscan" do
 end
 
 daemontools_service "musicbrainz-server" do
-  directory "/home/musicbrainz/musicbrainz-server/admin/nginx/service/"
+  directory "/home/musicbrainz/musicbrainz-server/admin/nginx/service-standalone/"
   template false
   action [:enable,:start]
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]" 
