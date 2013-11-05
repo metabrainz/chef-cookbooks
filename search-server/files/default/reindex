@@ -11,7 +11,7 @@ echo `date`: Removing old indexes
 rm -rf /home/search/indexdata/*
 
 echo `date`: Building indexes
-java -Xmx256M -jar jar/index.jar --db-user musicbrainz --db-name musicbrainz --indexes-dir indexdata --indexes area,artist,releasegroup,release,recording,label,work,tag,annotation,cdstub
+java -Xmx256M -jar jar/index.jar --db-user musicbrainz --db-name musicbrainz --indexes-dir indexdata --indexes area,artist,releasegroup,release,recording,label,work,tag,annotation,cdstub,place
 
 echo `date`: Starting jetty
 sudo /etc/init.d/jetty start
