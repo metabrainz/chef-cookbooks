@@ -1,0 +1,4 @@
+restore_command = 'cp /home/postgres/archive/%f "%p"'
+standby_mode = 'on'
+primary_conninfo = 'host=<%= node['postgresql']['master']['host'] %> port=5432 user=postgres'
+trigger_file = '<%= node['postgresql']['data_directory'] %>/failover'

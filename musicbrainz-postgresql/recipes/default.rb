@@ -1,7 +1,5 @@
 include_recipe "apt"
-
-package "postgresql-9.1"
-package "postgresql-contrib-9.1"
+include_recipe "postgresql::server"
 
 apt_repository "musicbrainz" do
   uri "http://ppa.launchpad.net/metabrainz/musicbrainz-server/ubuntu"
@@ -13,13 +11,3 @@ end
 
 package "postgresql-musicbrainz-collate"
 package "postgresql-musicbrainz-unaccent"
-
-cookbook_file "/etc/postgresql/9.1/main/pg_hba.conf" do
-  source "pg_hba.conf"
-  owner "postgres"
-end
-
-service "postgresql" do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start, :reload ]
-end
