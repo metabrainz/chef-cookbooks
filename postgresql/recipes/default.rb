@@ -4,7 +4,7 @@ package "postgresql-9.1"
 package "postgresql-contrib-9.1"
 
 apt_repository "musicbrainz" do
-  uri "http://ppa.launchpad.net/oliver-charles/musicbrainz/ubuntu"
+  uri "http://ppa.launchpad.net/metabrainz/musicbrainz-server/ubuntu"
   distribution node['lsb']['codename']
   components ["main"]
   keyserver "keyserver.ubuntu.com"
