@@ -11,3 +11,10 @@ apt_repository "musicbrainz" do
 end
 
 package "postgresql-dbmirror"
+
+# Contains PgQ 2
+package "skytools-modules-9.1"
+
+# Needed for searching JSON values
+package "postgresql-plperl-9.1"
+package "libjson-xs-perl"
