@@ -5,7 +5,6 @@ include_recipe "nodejs"
 
 package "libcatalyst-plugin-autorestart-perl"
 package "libcatalyst-plugin-errorcatcher-perl"
-package "libjavascript-closure-perl"
 package "starman"
 
 service "svscan" do
@@ -18,7 +17,7 @@ daemontools_service "musicbrainz-server" do
   template "musicbrainz-server"
   variables :nproc => node['musicbrainz-server']['nproc']
   action [:enable,:start]
-  subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]" 
+  subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
   subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
   log true
 end
