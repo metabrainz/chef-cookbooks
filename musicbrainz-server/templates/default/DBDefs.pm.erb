@@ -129,14 +129,6 @@ sub DATASTORE_REDIS_ARGS {
     sub RATELIMIT_SERVER { '<%= @dbdefs['ratelimit_server'] %>' }
 <%- end -%>
 
-<% if @dbdefs['minify_javascript'] %>
-    sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
-<% end %>
-
-<% if @dbdefs['minify_css'] %>
-    sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
-<% end %>
-
 <% if @dbdefs['session_cookie'] -%>
     sub SESSION_COOKIE { '<%= @dbdefs['session_cookie'] %>' }
 <%- end -%>
