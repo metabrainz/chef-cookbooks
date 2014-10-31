@@ -89,6 +89,10 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     sub LUCENE_SERVER { '<%= @dbdefs['lucene_server'] %>' }
 <%- end -%>
 
+<% if @dbdefs['lucene_x_accel_redirect'] -%>
+    sub LUCENE_X_ACCEL_REDIRECT { '<%= @dbdefs['lucene_x_accel_redirect'] %>' }
+<%- end -%>
+
 <% if @dbdefs['smtp_secret_checksum'] -%>
     sub SMTP_SECRET_CHECKSUM { '<%= @dbdefs['smtp_secret_checksum'] %>' }
 <%- end -%>
