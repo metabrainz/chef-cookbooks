@@ -90,6 +90,8 @@ cation/xml application/xml+rss text/javascript;
         set $search_url http://$search_host/$search_uri?$args;
 
         proxy_pass $search_url;
+
+        add_header Access-Control-Allow-Origin * always;
     }
 
     include /home/musicbrainz/musicbrainz-server/admin/nginx/mbserver-rewrites.conf;
