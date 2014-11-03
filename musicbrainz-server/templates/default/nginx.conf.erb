@@ -91,7 +91,7 @@ cation/xml application/xml+rss text/javascript;
 
         proxy_pass $search_url;
 
-        add_header Access-Control-Allow-Origin * always;
+        add_header Access-Control-Allow-Origin *;
     }
 
     include /home/musicbrainz/musicbrainz-server/admin/nginx/mbserver-rewrites.conf;
