@@ -39,6 +39,10 @@ use MusicBrainz::Server::Replication ':replication_type';
     sub COVER_ART_ARCHIVE_SECRET_KEY { '<%= @dbdefs['cover_art_archive_secret_key'] %>' }
 <%- end -%>
 
+<% if @dbdefs['mapbox_access_token'] -%>
+    sub MAPBOX_ACCESS_TOKEN { '<%= @dbdefs['mapbox_access_token'] %>' }
+<%- end -%>
+
 <% if @dbdefs['beta_redirect_hostname'] -%>
     sub BETA_REDIRECT_HOSTNAME { '<%= @dbdefs['beta_redirect_hostname'] %>' }
 <%- end -%>
