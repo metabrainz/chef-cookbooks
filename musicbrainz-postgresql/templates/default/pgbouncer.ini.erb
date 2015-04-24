@@ -8,7 +8,7 @@ pidfile=<%= node['postgresql']['data_directory'] %>/pgbouncer.pid
 listen_addr=*
 listen_port=<%= node['pgbouncer']['port'] %>
 user=postgres
-auth_file=/etc/pgbouncer/userlist.txt
+auth_file=/usr/local/pgbouncer/etc/auth_file
 auth_type=trust
 pool_mode=session
 min_pool_size=10
