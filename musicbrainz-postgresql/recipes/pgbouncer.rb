@@ -2,8 +2,8 @@ include_recipe "apt"
 
 package "pgbouncer"
 
-template "/etc/pgbouncer/userlist.txt"
-template "/etc/pgbouncer/pgbouncer.ini"
+template "/usr/local/pgbouncer/etc/auth_file"
+template "/usr/local/pgbouncer/etc/pgbouncer.ini"
 
 execute "Enable pgbouncer" do
   command "/bin/sed s/START=0/START=1/ -i /etc/default/pgbouncer"

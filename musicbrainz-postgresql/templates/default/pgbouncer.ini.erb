@@ -1,6 +1,6 @@
 [databases]
 <% node['postgresql']['databases'].each do |database| %>
-<%= database[:name] %> = host=127.0.0.1 dbname=<%= database[:name] %>
+<%= database[:name] %> = host=127.0.0.1 dbname=<%= database[:name] %> pool_size=50
 <% end %>
 
 [pgbouncer]
@@ -17,6 +17,8 @@ reserve_pool_size=0
 reserve_pool_timeout=1.0
 idle_transaction_timeout=0
 max_client_conn=150
+server_lifetime=300
+server_idle_timeout=60
 log_connections=0
 log_disconnections=0
 stats_period=3600
