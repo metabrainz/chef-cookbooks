@@ -24,7 +24,7 @@ end
 
 daemontools_service "musicbrainz-ws" do
   directory "/home/musicbrainz/svc-musicbrainz-ws"
-  template "musicbrainz-server"
+  template "musicbrainz-ws"
   variables :nproc => node['musicbrainz-server']['nproc-ws']
   action [:enable,:start]
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
