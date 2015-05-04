@@ -79,7 +79,7 @@ cation/xml application/xml+rss text/javascript;
         gzip_buffers 16 8k;
     }
 
-    location /ws/ {
+    location ~* ^/ws/[12]/ {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $http_x_mb_remote_addr;
