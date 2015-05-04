@@ -1,0 +1,14 @@
+#!/bin/bash
+echo starting
+exec 2>&1
+set -e
+cd mb_server
+umask 022
+exec \
+    env MUSICBRAINZ_USE_PROXY=1 starman -Ilib \
+        --preload-app \
+        -E deployment \
+        --listen musicbrainz-ws.socket \
+        --workers <%= @variables[:nproc] || 5 %> \
+        --user www-data \
+        --group www-data

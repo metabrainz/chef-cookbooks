@@ -15,7 +15,17 @@ end
 daemontools_service "musicbrainz-server" do
   directory "/home/musicbrainz/svc-musicbrainz-server"
   template "musicbrainz-server"
-  variables :nproc => node['musicbrainz-server']['nproc']
+  variables :nproc => node['musicbrainz-server']['nproc-website']
+  action [:enable,:start]
+  subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
+  subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
+  log true
+end
+
+daemontools_service "musicbrainz-ws" do
+  directory "/home/musicbrainz/svc-musicbrainz-ws"
+  template "musicbrainz-ws"
+  variables :nproc => node['musicbrainz-server']['nproc-ws']
   action [:enable,:start]
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
   subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
