@@ -37,6 +37,11 @@ link "/etc/service/musicbrainz-server/mb_server" do
   owner "musicbrainz"
 end
 
+link "/etc/service/musicbrainz-ws/mb_server" do
+  to "/home/musicbrainz/musicbrainz-server"
+  owner "musicbrainz"
+end
+
 script "npm install" do
   user "musicbrainz"
   interpreter "bash"
