@@ -5,10 +5,14 @@ set -e
 cd mb_server
 umask 022
 exec \
-    env MUSICBRAINZ_USE_PROXY=1 starman -Ilib \
-        --preload-app \
-        -E deployment \
-        --listen musicbrainz-ws.socket \
-        --workers <%= @variables[:nproc] || 5 %> \
-        --user www-data \
-        --group www-data
+    env MUSICBRAINZ_USE_PROXY=1 \
+        setuidgid www-data \
+            start_server --path musicbrainz-server.socket -- \
+                plackup \
+                    -Ilib \
+                    --server Starlet \
+                    --env deployment \
+                    --max-workers <%= @variables[:nproc] || 5 %> \
+                    --min-reqs-per-child 100 \
+                    --max-reqs-per-child 1000 \
+                    app.psgi
