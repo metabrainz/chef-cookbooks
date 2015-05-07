@@ -5,7 +5,7 @@ include_recipe "nodejs"
 
 package "libcatalyst-plugin-autorestart-perl"
 package "libcatalyst-plugin-errorcatcher-perl"
-package "starman"
+package "libstarlet-perl"
 
 service "svscan" do
   action :start
