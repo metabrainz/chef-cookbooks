@@ -54,7 +54,7 @@ script "compile_resources" do
   user "musicbrainz"
   interpreter "bash"
   cwd "/home/musicbrainz/musicbrainz-server"
-  code "UGLIFY=1 ./script/compile_resources.pl"
+  code "./script/compile_resources.pl"
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
 
