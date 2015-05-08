@@ -7,7 +7,7 @@ umask 022
 exec \
     env MUSICBRAINZ_USE_PROXY=1 \
         setuidgid www-data \
-            start_server --path /tmp/musicbrainz-server.socket -- \
+            start_server --path /tmp/musicbrainz-ws.socket -- \
                 plackup \
                     -Ilib \
                     --server Starlet \
