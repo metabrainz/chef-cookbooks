@@ -14,6 +14,17 @@ LoadPlugin processes
 LoadPlugin swap
 LoadPlugin uptime
 LoadPlugin write_graphite
+<% if @graphite['postgresql'] -%>
+LoadPlugin postgresql
+
+<Plugin postgresql>
+  <Database "<%= @graphite['postgresql'] %>">
+    Host "localhost"
+    Port "5432"
+    User "postgres"
+  </Database>
+</Plugin>
+<%- end -%>
 
 <Plugin write_graphite>
   <Node "<%= @graphite['host'] %>">
