@@ -46,7 +46,8 @@ script "npm install" do
   user "musicbrainz"
   interpreter "bash"
   cwd "/home/musicbrainz/musicbrainz-server"
-  code "HOME=/home/musicbrainz npm install"
+  environment "HOME" => "/home/musicbrainz"
+  code "npm install"
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
 
@@ -54,6 +55,7 @@ script "compile_resources" do
   user "musicbrainz"
   interpreter "bash"
   cwd "/home/musicbrainz/musicbrainz-server"
+  environment "HOME" => "/home/musicbrainz"
   code "./script/compile_resources.pl"
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
