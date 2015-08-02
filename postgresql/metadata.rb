@@ -1,1 +1,2 @@
+name "postgresql"
 depends "apt"
