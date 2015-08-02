@@ -1,9 +1,4 @@
 include_recipe "sudo"
-package "libshadow-ruby1.8"
-
-chef_gem "ruby-shadow" do
-  action :install
-end
 
 user "vm" do
   action :create

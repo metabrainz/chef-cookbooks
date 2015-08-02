@@ -1,23 +1,23 @@
-package "postgresql-9.1"
-package "postgresql-contrib-9.1"
+package "postgresql-9.3"
+package "postgresql-contrib-9.3"
 
 apt_repository "musicbrainz" do
-  uri "http://ppa.launchpad.net/oliver-charles/musicbrainz/ubuntu"
+  uri "http://ppa.launchpad.net/metabrainz/musicbrainz-server/ubuntu"
   distribution node['lsb']['codename']
   components ["main"]
   keyserver "keyserver.ubuntu.com"
-  key "E4EB3B02925D4F66"
+  key "E3446F96A3FB3557"
 end
 
 package "postgresql-musicbrainz-collate"
 package "postgresql-musicbrainz-unaccent"
 
-cookbook_file "/etc/postgresql/9.1/main/pg_hba.conf" do
+cookbook_file "/etc/postgresql/9.3/main/pg_hba.conf" do
   source "pg_hba.conf"
   owner "postgres"
 end
 
-cookbook_file "/etc/postgresql/9.1/main/postgresql.conf.in" do
+cookbook_file "/etc/postgresql/9.3/main/postgresql.conf.in" do
   source "postgresql.conf.in"
   owner "postgres"
   group "postgres"
@@ -39,7 +39,7 @@ link "/etc/rc3.d/S18postgresql-config" do
   to "/etc/init.d/postgresql-config"
 end
 
-file "/etc/postgresql/9.1/main/postgresql.conf" do
+file "/etc/postgresql/9.3/main/postgresql.conf" do
   action :delete
 end
 

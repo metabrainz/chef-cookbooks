@@ -4,7 +4,7 @@
 
 case "$1" in
     start)
-	/usr/local/bin/tune_pg.py /etc/postgresql/9.1/main/postgresql.conf.in /etc/postgresql/9.1/main/postgresql.conf
+	/usr/local/bin/tune_pg.py /etc/postgresql/9.3/main/postgresql.conf.in /etc/postgresql/9.3/main/postgresql.conf
         ;;
     *)
         echo "Usage: $0 {start|stop|restart|reload|force-reload|status} [version ..]"
