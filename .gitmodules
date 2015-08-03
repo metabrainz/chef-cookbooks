@@ -33,7 +33,7 @@
 	url = https://github.com/opscode-cookbooks/sudo
 [submodule "nodejs"]
 	path = nodejs
-	url = https://github.com/mdxp/nodejs-cookbook.git
+	url = https://github.com/redguide/nodejs.git
 [submodule "logster"]
 	path = logster
 	url = git://github.com/metabrainz/chef-logster.git
