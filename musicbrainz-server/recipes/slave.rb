@@ -1,5 +1,14 @@
 include_recipe "musicbrainz-server::install"
 
+package "nodejs"
+package "nodejs-legacy"
+package "npm"
+
+execute "compile_resources" do
+  cd "/home/musicbrainz/musicbrainz-server/script"
+  command "./compile_resources.pl"
+  action :run
+end
 
 directory "/home/musicbrainz/bin" do
   owner "musicbrainz"
