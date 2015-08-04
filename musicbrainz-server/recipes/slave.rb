@@ -3,11 +3,23 @@ include_recipe "musicbrainz-server::install"
 package "nodejs"
 package "nodejs-legacy"
 package "npm"
+package "libtemplate-plugin-json-escape-perl"
+
+execute "npm_install" do
+  cwd "/home/musicbrainz/musicbrainz-server"
+  command "npm install"
+#  ignore_failure true
+  action :run
+end
 
 execute "compile_resources" do
-  cd "/home/musicbrainz/musicbrainz-server/script"
+  cwd "/home/musicbrainz/musicbrainz-server/script"
   command "./compile_resources.pl"
   action :run
+end
+
+service "redis6379" do
+  action [:start,:enable]
 end
 
 directory "/home/musicbrainz/bin" do
