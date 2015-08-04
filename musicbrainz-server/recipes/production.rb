@@ -1,7 +1,6 @@
 include_recipe "daemontools"
 include_recipe "musicbrainz-server::install"
 include_recipe "nginx"
-include_recipe "nodejs"
 
 package "libcatalyst-plugin-autorestart-perl"
 package "libcatalyst-plugin-errorcatcher-perl"
