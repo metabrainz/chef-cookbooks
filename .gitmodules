@@ -61,3 +61,12 @@
 [submodule "sysctl"]
 	path = sysctl
 	url = https://github.com/onehealth-cookbooks/sysctl.git
+[submodule "yum-epel"]
+	path = yum-epel
+	url = https://github.com/chef-cookbooks/yum-epel.git
+[submodule "homebrew"]
+	path = homebrew
+	url = https://github.com/opscode-cookbooks/homebrew
+[submodule "ark"]
+	path = ark
+	url = https://github.com/burtlo/ark
