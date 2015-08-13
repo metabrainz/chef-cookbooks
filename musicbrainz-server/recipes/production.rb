@@ -47,6 +47,7 @@ script "npm install" do
   cwd "/home/musicbrainz/musicbrainz-server"
   environment "HOME" => "/home/musicbrainz"
   code "npm install"
+  action :nothing
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
 
@@ -56,6 +57,7 @@ script "compile_resources" do
   cwd "/home/musicbrainz/musicbrainz-server"
   environment "HOME" => "/home/musicbrainz"
   code "./script/compile_resources.pl"
+  action :nothing
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
 
