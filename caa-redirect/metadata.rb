@@ -1,0 +1,2 @@
+depends "daemontools"
+depends "apt"
