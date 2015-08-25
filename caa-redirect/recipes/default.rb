@@ -5,23 +5,23 @@ package "python-psycopg2"
 package "python-sqlalchemy"
 package "python-werkzeug"
 
-user "caaredirect" do
+user "coverart_redirect" do
   action :create
-  home "/home/caaredirect"
+  home "/home/coverart_redirect"
   shell "/bin/bash"
   supports :manage_home => true
 end
 
 package "git"
-git "/home/caaredirect/coverart_redirect" do
+git "/home/coverart_redirect/coverart_redirect" do
   repository "git://github.com/metabrainz/coverart_redirect.git"
   revision "master"
   action :sync
-  user "caaredirect"
+  user "coverart_redirect"
 end
 
-template "/home/caaredirect/coverart_redirect/coverart_redirect.conf" do
-  owner "caaredirect"
+template "/home/coverart_redirect/coverart_redirect/coverart_redirect.conf" do
+  owner "coverart_redirect"
   mode "644"
   variables :config => node['caa-redirect']
 end
@@ -33,12 +33,12 @@ service "svscan" do
 end
 
 daemontools_service "caa-redirect" do
-  directory "/home/caaredirect/svc-coverart_redirect"
+  directory "/home/coverart_redirect/svc-coverart_redirect"
   template "coverart_redirect"
   log true
   action [:enable, :start]
 end
 
-link "/home/caaredirect/svc-coverart_redirect/coverart_redirect" do
-  to "/home/caaredirect/coverart_redirect"
-end 
+link "/home/coverart_redirect/svc-coverart_redirect/coverart_redirect" do
+  to "/home/coverart_redirect/coverart_redirect"
+end
