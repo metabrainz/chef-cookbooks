@@ -31,9 +31,6 @@
 [submodule "sudo"]
 	path = sudo
 	url = https://github.com/opscode-cookbooks/sudo
-[submodule "nodejs"]
-	path = nodejs
-	url = https://github.com/mdxp/nodejs-cookbook.git
 [submodule "logster"]
 	path = logster
 	url = git://github.com/metabrainz/chef-logster.git
@@ -52,3 +49,12 @@
 [submodule "apache2"]
 	path = apache2
 	url = https://github.com/opscode-cookbooks/apache2.git
+[submodule "cabal"]
+	path = cabal
+	url = https://github.com/apiengine/chef-cabal.git
+[submodule "postgresql"]
+	path = postgresql
+	url = https://github.com/phlipper/chef-postgresql.git
+[submodule "sysctl"]
+	path = sysctl
+	url = https://github.com/onehealth-cookbooks/sysctl.git

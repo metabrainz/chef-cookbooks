@@ -39,6 +39,10 @@ use MusicBrainz::Server::Replication ':replication_type';
     sub COVER_ART_ARCHIVE_SECRET_KEY { '<%= @dbdefs['cover_art_archive_secret_key'] %>' }
 <%- end -%>
 
+<% if @dbdefs['mapbox_access_token'] -%>
+    sub MAPBOX_ACCESS_TOKEN { '<%= @dbdefs['mapbox_access_token'] %>' }
+<%- end -%>
+
 <% if @dbdefs['beta_redirect_hostname'] -%>
     sub BETA_REDIRECT_HOSTNAME { '<%= @dbdefs['beta_redirect_hostname'] %>' }
 <%- end -%>
@@ -89,6 +93,10 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     sub LUCENE_SERVER { '<%= @dbdefs['lucene_server'] %>' }
 <%- end -%>
 
+<% if @dbdefs['lucene_x_accel_redirect'] -%>
+    sub LUCENE_X_ACCEL_REDIRECT { '<%= @dbdefs['lucene_x_accel_redirect'] %>' }
+<%- end -%>
+
 <% if @dbdefs['smtp_secret_checksum'] -%>
     sub SMTP_SECRET_CHECKSUM { '<%= @dbdefs['smtp_secret_checksum'] %>' }
 <%- end -%>
@@ -128,14 +136,6 @@ sub DATASTORE_REDIS_ARGS {
 <% if @dbdefs['ratelimit_server'] -%>
     sub RATELIMIT_SERVER { '<%= @dbdefs['ratelimit_server'] %>' }
 <%- end -%>
-
-<% if @dbdefs['minify_javascript'] %>
-    sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
-<% end %>
-
-<% if @dbdefs['minify_css'] %>
-    sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
-<% end %>
 
 <% if @dbdefs['session_cookie'] -%>
     sub SESSION_COOKIE { '<%= @dbdefs['session_cookie'] %>' }
@@ -187,7 +187,7 @@ sub DEVELOPMENT_SERVER { <%= (@dbdefs['development_server'] && 1) || 0 %> }
                 memory => {
                     class => 'Cache::Memory',
                     wrapped => 1,
-                    keys => [qw( at g c lng lt mf rgt rs rp scr wt )],
+                    keys => [qw( area_type artist_type g c lng label_type mf place_type release_group_type release_group_secondary_type rs rp scr work_type )],
                     options => {
                         default_expires => '1 hour',
                     },

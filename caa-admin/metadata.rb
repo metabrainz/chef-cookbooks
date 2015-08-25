@@ -1,0 +1,2 @@
+depends "cabal"
+depends "daemontools"

@@ -1,5 +1,4 @@
 depends "apt"
-depends "nodejs"
 depends "build-essential"
 depends "daemontools"
 depends "nginx"

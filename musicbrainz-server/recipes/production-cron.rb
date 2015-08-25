@@ -2,6 +2,7 @@ include_recipe "musicbrainz-server::install"
 
 package "libmoosex-runnable-perl"
 package "postgresql-client"
+package "libwww-sitemap-xml-perl"
 
 cron "daily" do
     minute "10"

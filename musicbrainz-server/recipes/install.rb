@@ -29,11 +29,11 @@ end
 
 include_recipe "apt"
 apt_repository "musicbrainz" do
-  uri "http://ppa.launchpad.net/oliver-charles/musicbrainz/ubuntu"
+  uri "http://ppa.launchpad.net/metabrainz/musicbrainz-server/ubuntu"
   distribution node['lsb']['codename']
   components ["main"]
   keyserver "keyserver.ubuntu.com"
-  key "E4EB3B02925D4F66"
+  key "D58E52C99814760488A38D87E3446F96A3FB3557"
 end
 
 package "libxml2-dev"
@@ -58,7 +58,6 @@ package "libcatalyst-plugin-unicode-encoding-perl"
 package "libcatalyst-view-tt-perl"
 package "libcgi-expand-perl"
 package "libclone-perl"
-package "libcss-minifier-perl"
 package "libdata-compare-perl"
 package "libdata-dumper-concise-perl"
 package "libdata-optlist-perl"
@@ -87,6 +86,7 @@ package "libgnupg-perl"
 package "libhtml-formhandler-perl"
 package "libhtml-tiny-perl"
 package "libhtml-treebuilder-xpath-perl"
+package "libhttp-date-perl"
 package "libintl-perl"
 package "libio-all-perl"
 package "libjson-perl"
@@ -124,6 +124,8 @@ package "libstring-shellquote-perl"
 package "libstring-tt-perl"
 package "libtemplate-plugin-class-perl"
 package "libtemplate-plugin-javascript-perl"
+package "libtemplate-plugin-json-escape-perl"
+package "libtext-markdown-perl"
 package "libtext-trim-perl"
 package "libtext-unaccent-perl"
 package "libtext-wikiformat-perl"
@@ -137,3 +139,13 @@ package "libxml-rss-parser-lite-perl"
 package "libxml-semanticdiff-perl"
 package "libxml-simple-perl"
 package "libxml-xpath-perl"
+
+apt_repository "nodejs" do
+  uri "https://deb.nodesource.com/iojs_3.x"
+  distribution node['lsb']['codename']
+  components ["main"]
+  keyserver "keyserver.ubuntu.com"
+  key "1655a0ab68576280"
+end
+
+package "iojs"
