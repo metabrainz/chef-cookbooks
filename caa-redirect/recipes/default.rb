@@ -15,7 +15,7 @@ end
 package "git"
 git "/home/coverart_redirect/coverart_redirect" do
   repository "git://github.com/metabrainz/coverart_redirect.git"
-  revision "master"
+  revision node['caa-redirect'][:revision]
   action :sync
   user "coverart_redirect"
 end
