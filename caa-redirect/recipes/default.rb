@@ -5,6 +5,8 @@ package "python-psycopg2"
 package "python-sqlalchemy"
 package "python-werkzeug"
 
+service_name = node['caa-redirect'][:service]
+
 user "coverart_redirect" do
   action :create
   home "/home/coverart_redirect"
@@ -13,14 +15,14 @@ user "coverart_redirect" do
 end
 
 package "git"
-git "/home/coverart_redirect/coverart_redirect" do
+git "/home/coverart_redirect/#{service_name}" do
   repository "git://github.com/metabrainz/coverart_redirect.git"
   revision node['caa-redirect'][:revision]
   action :sync
   user "coverart_redirect"
 end
 
-template "/home/coverart_redirect/coverart_redirect/coverart_redirect.conf" do
+template "/home/coverart_redirect/#{service_name}/coverart_redirect.conf" do
   owner "coverart_redirect"
   mode "644"
   variables :config => node['caa-redirect']
@@ -33,12 +35,12 @@ service "svscan" do
 end
 
 daemontools_service "caa-redirect" do
-  directory "/home/coverart_redirect/svc-coverart_redirect"
+  directory "/home/coverart_redirect/svc-#{service_name}"
   template "coverart_redirect"
   log true
   action [:enable, :start]
 end
 
-link "/home/coverart_redirect/svc-coverart_redirect/coverart_redirect" do
-  to "/home/coverart_redirect/coverart_redirect"
+link "/home/coverart_redirect/svc-#{service_name}/coverart_redirect" do
+  to "/home/coverart_redirect/#{service_name}"
 end

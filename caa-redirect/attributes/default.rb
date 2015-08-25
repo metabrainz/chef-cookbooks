@@ -6,3 +6,4 @@ default['caa-redirect'][:database][:mb_schema] = 'musicbrainz'
 default['caa-redirect'][:database][:caa_schema] = 'cover_art_archive'
 default['caa-redirect'][:port] = 8080
 default['caa-redirect'][:revision] = 'master'
+default['caa-redirect'][:service] = 'coverart_redirect'
