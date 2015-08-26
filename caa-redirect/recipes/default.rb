@@ -7,23 +7,23 @@ package "python-werkzeug"
 
 service_name = node['caa-redirect'][:service]
 
-user "coverart_redirect" do
+user "caaredirect" do
   action :create
-  home "/home/coverart_redirect"
+  home "/home/caaredirect"
   shell "/bin/bash"
   supports :manage_home => true
 end
 
 package "git"
-git "/home/coverart_redirect/#{service_name}" do
+git "/home/caaredirect/#{service_name}" do
   repository "git://github.com/metabrainz/coverart_redirect.git"
   revision node['caa-redirect'][:revision]
   action :sync
-  user "coverart_redirect"
+  user "caaredirect"
 end
 
-template "/home/coverart_redirect/#{service_name}/coverart_redirect.conf" do
-  owner "coverart_redirect"
+template "/home/caaredirect/#{service_name}/coverart_redirect.conf" do
+  owner "caaredirect"
   mode "644"
   variables :config => node['caa-redirect']
 end
@@ -35,12 +35,12 @@ service "svscan" do
 end
 
 daemontools_service "caa-redirect" do
-  directory "/home/coverart_redirect/svc-#{service_name}"
+  directory "/home/caaredirect/svc-#{service_name}"
   template "coverart_redirect"
   log true
   action [:enable, :start]
 end
 
-link "/home/coverart_redirect/svc-#{service_name}/coverart_redirect" do
-  to "/home/coverart_redirect/#{service_name}"
+link "/home/caaredirect/svc-#{service_name}/coverart_redirect" do
+  to "/home/caaredirect/#{service_name}"
 end
