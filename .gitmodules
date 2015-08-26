@@ -27,7 +27,7 @@
 	url = https://github.com/opscode-cookbooks/yum.git
 [submodule "redis"]
 	path = redis
-	url = https://github.com/ctrabold/chef-redis.git
+	url = https://github.com/brianbianco/redisio.git
 [submodule "sudo"]
 	path = sudo
 	url = https://github.com/opscode-cookbooks/sudo
@@ -58,3 +58,6 @@
 [submodule "sysctl"]
 	path = sysctl
 	url = https://github.com/onehealth-cookbooks/sysctl.git
+[submodule "ulimit"]
+	path = ulimit
+	url = https://github.com/bmhatfield/chef-ulimit
