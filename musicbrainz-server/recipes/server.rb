@@ -56,7 +56,7 @@ script "compile_resources" do
   interpreter "bash"
   cwd "/home/musicbrainz/musicbrainz-server"
   environment "HOME" => "/home/musicbrainz"
-  code "./script/compile_resources.pl"
+  code "./script/compile_resources.sh"
   action :nothing
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end

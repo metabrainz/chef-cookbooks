@@ -14,7 +14,6 @@ end
 package "git"
 git "/home/musicbrainz/musicbrainz-server" do
   repository "git://github.com/metabrainz/musicbrainz-server.git"
-  revision "master"
   action :sync
   user "musicbrainz"
   revision node['musicbrainz-server']['revision']
