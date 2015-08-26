@@ -64,7 +64,10 @@ end
 template "/etc/nginx/sites-available/musicbrainz" do
   source "nginx.conf.erb"
   user "root"
-  variables :server_name => node['musicbrainz-server']['hostname'];
+  variables(
+    :listen_address => node['musicbrainz-server']['listen_address'],
+    :server_name => node['musicbrainz-server']['hostname']
+  )
   notifies :reload, "service[nginx]"
 end
 

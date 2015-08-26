@@ -1,5 +1,5 @@
 server {
-    listen 0.0.0.0:80;
+    listen <%= @listen_address %>;
     server_name <%= @server_name %>;
 
     log_format proxylog
