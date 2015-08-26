@@ -47,6 +47,10 @@ use MusicBrainz::Server::Replication ':replication_type';
     sub BETA_REDIRECT_HOSTNAME { '<%= @dbdefs['beta_redirect_hostname'] %>' }
 <%- end -%>
 
+<% if @dbdefs['is_beta'] -%>
+sub IS_BETA { 1 }
+<%- end -%>
+
 <% if @dbdefs['databases'] %>
 MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 <% @dbdefs['databases'].each do |database, config| %>
@@ -107,6 +111,14 @@ sub DB_READ_ONLY { <%= (@dbdefs['db_read_only'] && 1) || 0 %> }
 
 sub DB_STAGING_SERVER_SANITIZED { <%= (@dbdefs['db_staging_server_sanitized'] && 1) || 0 %> }
 
+<% if @dbdefs['db_staging_server_description'] -%>
+sub DB_STAGING_SERVER_DESCRIPTION { <%= @dbdefs['db_staging_server_description'] %> }
+<%- end -%>
+
+<% if @dbdefs['memcached_namespace'] -%>
+sub MEMCACHED_NAMESPACE { '<%= @dbdefs['memcached_namespace'] %>' }
+<%- end -%>
+
 <% if @dbdefs['memcached_servers'] %>
 sub MEMCACHED_SERVERS {
   [
@@ -121,7 +133,7 @@ sub MEMCACHED_SERVERS {
 sub DATASTORE_REDIS_ARGS {
     my $self = shift;
     return {
-        prefix => $self->MEMCACHED_NAMESPACE(),
+        prefix => 'MB:',
         database => 0,
         test_database => 1,
         redis_new_args => {
@@ -179,31 +191,10 @@ sub DEVELOPMENT_SERVER { <%= (@dbdefs['development_server'] && 1) || 0 %> }
     }
 <% end %>
 
-<% if @dbdefs['cache_manager_server'] %>
-    sub CACHE_MANAGER_OPTIONS {
-        my $self = shift;
-        return {
-            profiles => {
-                memory => {
-                    class => 'Cache::Memory',
-                    wrapped => 1,
-                    keys => [qw( area_type artist_type g c lng label_type mf place_type release_group_type release_group_secondary_type rs rp scr work_type )],
-                    options => {
-                        default_expires => '1 hour',
-                    },
-                },
-                external => {
-                    class => 'Cache::Memcached::Fast',
-                    options => {
-                        servers => [ '<%= @dbdefs['cache_manager_server'] %>' ]
-                    },
-                },
-            },
-            default_profile => 'external',
-        };
-    }
-<% end %>
-
 sub SSL_REDIRECTS_ENABLED { <%= (@dbdefs['ssl_redirects_enabled'] && 1) || 0 %> }
+
+<% if @dbdefs['mb_languages'] -%>
+sub MB_LANGUAGES { qw(<%= @dbdefs['mb_languages'] %>) }
+<%- end -%>
 
 1;
