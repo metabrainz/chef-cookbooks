@@ -8,7 +8,7 @@ coverart_schema=<%= @config[:database][:caa_schema] %>
 
 [listen]
 address=0.0.0.0
-port=<%= @config[:port] %>
+port=<%= @config[@server.to_sym][:port] %>
 
 [s3]
 prefix=//archive.org/download
