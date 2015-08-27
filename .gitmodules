@@ -25,9 +25,6 @@
 [submodule "yum"]
 	path = yum
 	url = https://github.com/opscode-cookbooks/yum.git
-[submodule "redisio"]
-	path = redisio
-	url = https://github.com/brianbianco/redisio.git
 [submodule "sudo"]
 	path = sudo
 	url = https://github.com/opscode-cookbooks/sudo
