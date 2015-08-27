@@ -111,6 +111,8 @@ sub DB_READ_ONLY { <%= (@dbdefs['db_read_only'] && 1) || 0 %> }
 
 sub DB_STAGING_SERVER_SANITIZED { <%= (@dbdefs['db_staging_server_sanitized'] && 1) || 0 %> }
 
+sub DB_STAGING_TESTING_FEATURES { 0 }
+
 <% if @dbdefs['db_staging_server_description'] -%>
 sub DB_STAGING_SERVER_DESCRIPTION { <%= @dbdefs['db_staging_server_description'] %> }
 <%- end -%>
