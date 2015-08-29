@@ -1,15 +1,18 @@
-user "monitoring"
-
-include_recipe "apt"
-apt_repository "musicbrainz" do
-  uri "http://ppa.launchpad.net/metabrainz/musicbrainz-server/ubuntu"
-  distribution node['lsb']['codename']
-  components ["main"]
-  keyserver "keyserver.ubuntu.com"
-  key "D58E52C99814760488A38D87E3446F96A3FB3557"
+user "monitoring" do
+  action :create
+  home "/home/monitoring"
+  shell "/bin/bash"
+  supports :manage_home => true
 end
 
-package "gamekeeper"
+package "cabal-install"
+cabal_install "gamekeeper" do
+  github "brendanhay/gamekeeper"
+  user "monitoring"
+  cabal_update true
+  install_binary :from => 'dist/build/gamekeeper/gamekeeper', :to => '/usr/bin/gamekeeper'
+  force_reinstalls true
+end
 
 rabbitmq_user node['monitoring']['rabbitmq']['user'] do
   action :add
