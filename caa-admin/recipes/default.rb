@@ -7,6 +7,7 @@ user "caaadmin" do
   supports :manage_home => true
 end
 
+package "cabal-install"
 cabal_install "caa-admin" do
   github "metabrainz/caa-admin"
   user "caaadmin"
