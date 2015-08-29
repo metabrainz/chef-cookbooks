@@ -28,3 +28,10 @@ daemontools_service "caa-admin" do
   log true
   action [:enable, :start]
 end
+
+template '/home/caaadmin/svc-caa-admin/devel.cfg' do
+  source 'devel.cfg.erb'
+  owner 'caaadmin'
+  group 'caaadmin'
+  mode '0755'
+end
