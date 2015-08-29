@@ -7,6 +7,10 @@ user "caaadmin" do
   supports :manage_home => true
 end
 
+execute 'caa_admin_down' do
+  command 'svc -d /etc/service/caa-admin'
+end
+
 package "cabal-install"
 cabal_install "caa-admin" do
   github "metabrainz/caa-admin"
