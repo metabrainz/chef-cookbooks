@@ -15,4 +15,5 @@ exec \
                     --max-workers <%= @variables[:nproc] || 5 %> \
                     --min-reqs-per-child 100 \
                     --max-reqs-per-child 1000 \
+                    --spawn-interval 1 \
                     app.psgi
