@@ -139,11 +139,11 @@ package "libxml-simple-perl"
 package "libxml-xpath-perl"
 
 apt_repository "nodejs" do
-  uri "https://deb.nodesource.com/iojs_3.x"
+  uri "https://deb.nodesource.com/node_4.x"
   distribution node['lsb']['codename']
   components ["main"]
   keyserver "keyserver.ubuntu.com"
   key "1655a0ab68576280"
 end
 
-package "iojs"
+package "nodejs"
