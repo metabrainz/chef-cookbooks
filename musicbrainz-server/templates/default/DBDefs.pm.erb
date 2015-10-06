@@ -81,6 +81,10 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     sub REPLICATION_TYPE { <%= @dbdefs['replication_type'].to_s.upcase %> }
 <%- end -%>
 
+<% if @dbdefs['replication_access_token'] -%>
+    sub REPLICATION_ACCESS_TOKEN { '<%= @dbdefs['replication_access_token'] %>' }
+<%- end -%>
+
 <% if @dbdefs['web_server'] -%>
     sub WEB_SERVER { '<%= @dbdefs['web_server'] %>' }
 <%- end -%>
