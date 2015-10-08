@@ -30,5 +30,7 @@ LoadPlugin postgresql
   <Node "<%= @graphite['host'] %>">
     Host "<%= @graphite['host'] %>"
     Port "2003"
+    Protocol "tcp"
+    LogSendErrors true
   </Node>
 </Plugin>
