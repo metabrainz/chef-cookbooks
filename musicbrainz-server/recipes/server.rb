@@ -11,6 +11,15 @@ service "svscan" do
   provider Chef::Provider::Service::Upstart
 end
 
+daemontools_service "musicbrainz-server-renderer" do
+  directory "/home/musicbrainz/svc-musicbrainz-server-renderer"
+  template "musicbrainz-server-renderer"
+  variables :port => node['musicbrainz-server']['renderer-port']
+  action [:enable, :start]
+  subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
+  log false
+end
+
 daemontools_service "musicbrainz-server" do
   directory "/home/musicbrainz/svc-musicbrainz-server"
   template "musicbrainz-server"
@@ -29,6 +38,11 @@ daemontools_service "musicbrainz-ws" do
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
   subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
   log true
+end
+
+link "/etc/service/musicbrainz-server-renderer/mb_server" do
+  to "/home/musicbrainz/musicbrainz-server"
+  owner "musicbrainz"
 end
 
 link "/etc/service/musicbrainz-server/mb_server" do
