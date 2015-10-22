@@ -4,5 +4,4 @@ exec 2>&1
 set -e
 cd mb_server
 umask 022
-exec setuidgid www-data \
-    node root/server.js --port <%= @variables[:port] || 9009 %>
+exec setuidgid www-data ./script/start_renderer.pl
