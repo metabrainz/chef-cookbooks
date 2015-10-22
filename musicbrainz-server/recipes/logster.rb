@@ -9,7 +9,7 @@ git "/home/musicbrainz/logster" do
 end
 
 logster_log "/var/log/nginx/001-musicbrainz.access.log" do
-    prefix "#{node['hostname']}.musicbrainz_server"
+    prefix "logster.musicbrainz_server.#{node['hostname']}"
     output "graphite"
     graphite_host node['graphite']['host']
     parser "musicbrainz.logster.NginxStatus.NginxStatus"
