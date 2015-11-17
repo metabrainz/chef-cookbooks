@@ -36,6 +36,10 @@ apt_repository "musicbrainz" do
 end
 
 package "gettext"
+package "language-pack-de"
+package "language-pack-fr"
+package "language-pack-nl"
+
 package "libxml2-dev"
 package "libpq-dev"
 package "libexpat1-dev"
