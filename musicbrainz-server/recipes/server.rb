@@ -25,8 +25,8 @@ daemontools_service "musicbrainz-server" do
   template "musicbrainz-server"
   variables :nproc => node['musicbrainz-server']['nproc-website']
   action [:enable, :up]
-  subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
-  subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
+  subscribes :hup, "git[/home/musicbrainz/musicbrainz-server]"
+  subscribes :hup, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
   log true
 end
 
@@ -35,8 +35,8 @@ daemontools_service "musicbrainz-ws" do
   template "musicbrainz-ws"
   variables :nproc => node['musicbrainz-server']['nproc-ws']
   action [:enable, :up]
-  subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
-  subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
+  subscribes :hup, "git[/home/musicbrainz/musicbrainz-server]"
+  subscribes :hup, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
   log true
 end
 
