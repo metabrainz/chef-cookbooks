@@ -6,6 +6,32 @@ package "libcatalyst-plugin-autorestart-perl"
 package "libcatalyst-plugin-errorcatcher-perl"
 package "libstarlet-perl"
 
+script "make_po" do
+  user "musicbrainz"
+  interpreter "bash"
+  cwd "/home/musicbrainz/musicbrainz-server"
+  environment "HOME" => "/home/musicbrainz"
+  code <<-EOH
+    make -C po all_quiet
+    make -C po deploy
+    EOH
+  action :nothing
+  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
+end
+
+script "compile_resources" do
+  user "musicbrainz"
+  interpreter "bash"
+  cwd "/home/musicbrainz/musicbrainz-server"
+  environment "HOME" => "/home/musicbrainz"
+  code <<-EOH
+    npm install
+    ./script/compile_resources.sh
+    EOH
+  action :nothing
+  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
+end
+
 service "svscan" do
   action :start
   provider Chef::Provider::Service::Upstart
@@ -53,32 +79,6 @@ end
 link "/etc/service/musicbrainz-ws/mb_server" do
   to "/home/musicbrainz/musicbrainz-server"
   owner "musicbrainz"
-end
-
-script "make_po" do
-  user "musicbrainz"
-  interpreter "bash"
-  cwd "/home/musicbrainz/musicbrainz-server"
-  environment "HOME" => "/home/musicbrainz"
-  code <<-EOH
-    make -C po all_quiet
-    make -C po deploy
-    EOH
-  action :nothing
-  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
-end
-
-script "compile_resources" do
-  user "musicbrainz"
-  interpreter "bash"
-  cwd "/home/musicbrainz/musicbrainz-server"
-  environment "HOME" => "/home/musicbrainz"
-  code <<-EOH
-    npm install
-    ./script/compile_resources.sh
-    EOH
-  action :nothing
-  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
 
 template "/etc/nginx/sites-available/musicbrainz" do
