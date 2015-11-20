@@ -15,7 +15,7 @@ daemontools_service "musicbrainz-server-renderer" do
   directory "/home/musicbrainz/svc-musicbrainz-server-renderer"
   template "musicbrainz-server-renderer"
   variables :port => node['musicbrainz-server']['renderer-port']
-  action [:enable, :start]
+  action [:enable, :up]
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
   log false
 end
@@ -24,7 +24,7 @@ daemontools_service "musicbrainz-server" do
   directory "/home/musicbrainz/svc-musicbrainz-server"
   template "musicbrainz-server"
   variables :nproc => node['musicbrainz-server']['nproc-website']
-  action [:enable,:start]
+  action [:enable, :up]
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
   subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
   log true
@@ -34,7 +34,7 @@ daemontools_service "musicbrainz-ws" do
   directory "/home/musicbrainz/svc-musicbrainz-ws"
   template "musicbrainz-ws"
   variables :nproc => node['musicbrainz-server']['nproc-ws']
-  action [:enable,:start]
+  action [:enable, :up]
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
   subscribes :restart, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
   log true
