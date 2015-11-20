@@ -55,12 +55,15 @@ link "/etc/service/musicbrainz-ws/mb_server" do
   owner "musicbrainz"
 end
 
-script "npm install" do
+script "make_po" do
   user "musicbrainz"
   interpreter "bash"
   cwd "/home/musicbrainz/musicbrainz-server"
   environment "HOME" => "/home/musicbrainz"
-  code "npm install"
+  code <<-EOH
+    make -C po all_quiet
+    make -C po deploy
+    EOH
   action :nothing
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
@@ -70,7 +73,10 @@ script "compile_resources" do
   interpreter "bash"
   cwd "/home/musicbrainz/musicbrainz-server"
   environment "HOME" => "/home/musicbrainz"
-  code "./script/compile_resources.sh"
+  code <<-EOH
+    npm install
+    ./script/compile_resources.sh
+    EOH
   action :nothing
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
