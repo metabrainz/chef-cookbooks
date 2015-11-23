@@ -5,6 +5,7 @@ package "python-cherrypy3"
 package "python-psycopg2"
 package "python-sqlalchemy"
 package "python-werkzeug"
+package "fabric"
 
 user "caaredirect" do
   action :create
@@ -36,6 +37,19 @@ end
       :config => node['caa-redirect'],
       :server => server
     )
+  end
+
+  script "compile_resources" do
+    user "caaredirect"
+    interpreter "bash"
+    cwd "/home/caaredirect/#{service_name}"
+    environment "HOME" => "/home/caaredirect"
+    code <<-EOH
+      npm install
+      fab compile_styling
+      EOH
+    action :nothing
+    subscribes :run, "git[/home/caaredirect/#{service_name}]"
   end
 
   daemontools_service "#{service_name}" do
