@@ -7,6 +7,16 @@ package "python-sqlalchemy"
 package "python-werkzeug"
 package "fabric"
 
+apt_repository "nodejs" do
+  uri "https://deb.nodesource.com/node_4.x"
+  distribution node['lsb']['codename']
+  components ["main"]
+  keyserver "keyserver.ubuntu.com"
+  key "1655a0ab68576280"
+end
+
+package "nodejs"
+
 user "caaredirect" do
   action :create
   home "/home/caaredirect"
