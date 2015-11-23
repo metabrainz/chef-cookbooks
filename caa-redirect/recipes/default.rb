@@ -53,7 +53,10 @@ end
     user "caaredirect"
     interpreter "bash"
     cwd "/home/caaredirect/#{service_name}"
-    environment "HOME" => "/home/caaredirect"
+    environment ({
+      "HOME" => "/home/caaredirect", 
+      "PATH" => "/home/caaredirect/#{service_name}/node_modules/.bin:#{ENV['PATH']}",
+    })
     code <<-EOH
       npm install
       fab compile_styling
