@@ -64,3 +64,6 @@
 [submodule "yum-epel"]
 	path = yum-epel
 	url = https://github.com/chef-cookbooks/yum-epel
+[submodule "yum-erlang_solutions"]
+	path = yum-erlang_solutions
+	url = https://github.com/chef-cookbooks/yum-erlang_solutions
