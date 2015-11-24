@@ -61,3 +61,6 @@
 [submodule "pacman"]
 	path = pacman
 	url = https://github.com/jesseadams/pacman/
+[submodule "yum-epel"]
+	path = yum-epel
+	url = https://github.com/chef-cookbooks/yum-epel
