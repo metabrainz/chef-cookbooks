@@ -1,4 +1,10 @@
 include_recipe "cabal"
+include_recipe "daemontools"
+
+service "svscan" do
+  action :start
+  provider Chef::Provider::Service::Upstart
+end
 
 user "caaadmin" do
   action :create
@@ -9,6 +15,7 @@ end
 
 execute 'caa_admin_down' do
   command 'svc -d /etc/service/caa-admin'
+  only_if { File.exist?('/etc/service/caa-admin') }
 end
 
 package "cabal-install"
@@ -20,22 +27,17 @@ cabal_install "caa-admin" do
   force_reinstalls true
 end
 
-include_recipe "daemontools"
-service "svscan" do
-  action :start
-  provider Chef::Provider::Service::Upstart
+template '/home/caaadmin/svc-caa-admin/devel.cfg' do
+  source 'devel.cfg.erb'
+  owner 'caaadmin'
+  group 'caaadmin'
+  mode '0755'
+  notifies :hup, 'daemontools_service[caa-admin]'
 end
 
 daemontools_service "caa-admin" do
   directory "/home/caaadmin/svc-caa-admin"
   template "caa-admin"
   log true
-  action [:enable, :start]
-end
-
-template '/home/caaadmin/svc-caa-admin/devel.cfg' do
-  source 'devel.cfg.erb'
-  owner 'caaadmin'
-  group 'caaadmin'
-  mode '0755'
+  action [:enable, :up]
 end
