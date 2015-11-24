@@ -5,6 +5,7 @@ include_recipe "nginx"
 package "libcatalyst-plugin-autorestart-perl"
 package "libcatalyst-plugin-errorcatcher-perl"
 package "libstarlet-perl"
+package "make"
 
 script "make_po" do
   user "musicbrainz"
