@@ -76,3 +76,6 @@
 [submodule "compat_resource"]
 	path = compat_resource
 	url = https://github.com/chef-cookbooks/compat_resource
+[submodule "packagecloud-cookbook"]
+	path = packagecloud-cookbook
+	url = https://github.com/computology/packagecloud-cookbook
