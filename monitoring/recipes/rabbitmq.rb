@@ -1,3 +1,5 @@
+include_recipe "cabal"
+
 user "monitoring" do
   action :create
   home "/home/monitoring"
