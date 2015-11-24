@@ -73,3 +73,6 @@
 [submodule "rsyslog"]
 	path = rsyslog
 	url = https://github.com/chef-cookbooks/rsyslog
+[submodule "compat_resource"]
+	path = compat_resource
+	url = https://github.com/chef-cookbooks/compat_resource
