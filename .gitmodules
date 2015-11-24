@@ -58,3 +58,6 @@
 [submodule "ulimit"]
 	path = ulimit
 	url = https://github.com/bmhatfield/chef-ulimit
+[submodule "pacman"]
+	path = pacman
+	url = https://github.com/jesseadams/pacman/
