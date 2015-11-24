@@ -1,1 +1,3 @@
+name "collectd"
+
 depends "apt"
