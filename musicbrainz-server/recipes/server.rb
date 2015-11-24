@@ -40,7 +40,7 @@ end
 daemontools_service "musicbrainz-server-renderer" do
   directory "/home/musicbrainz/svc-musicbrainz-server-renderer"
   template "musicbrainz-server-renderer"
-  variables :port => node['musicbrainz-server']['renderer-port']
+  variables :port => node['musicbrainz-server']['dbdefs']['renderer_port']
   action [:enable, :up]
   subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
   log false

@@ -203,4 +203,12 @@ sub SSL_REDIRECTS_ENABLED { <%= (@dbdefs['ssl_redirects_enabled'] && 1) || 0 %> 
 sub MB_LANGUAGES { qw(<%= @dbdefs['mb_languages'] %>) }
 <%- end -%>
 
+<% if @dbdefs['renderer_host'] -%>
+sub RENDERER_HOST { '<%= @dbdefs['renderer_host'] %>' }
+<%- end -%>
+
+<% if @dbdefs['renderer_port'] -%>
+sub RENDERER_PORT { <%= @dbdefs['renderer_port'] %> }
+<%- end -%>
+
 1;
