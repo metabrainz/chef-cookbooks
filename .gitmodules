@@ -67,3 +67,6 @@
 [submodule "yum-erlang_solutions"]
 	path = yum-erlang_solutions
 	url = https://github.com/chef-cookbooks/yum-erlang_solutions
+[submodule "bluepill"]
+	path = bluepill
+	url = https://github.com/chef-cookbooks/bluepill
