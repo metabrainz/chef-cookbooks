@@ -67,7 +67,7 @@ end
     directory "/home/caaredirect/svc-#{service_name}"
     template "coverart_redirect"
     log true
-    action [:enable, :start]
+    action [:enable, :up]
   end
 
   link "/home/caaredirect/svc-#{service_name}/coverart_redirect" do
