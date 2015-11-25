@@ -61,6 +61,7 @@ end
       EOH
     action :nothing
     subscribes :run, "git[/home/caaredirect/#{service_name}]"
+    notifies :restart, "daemontools_service[#{service_name}]"
   end
 
   daemontools_service "#{service_name}" do
