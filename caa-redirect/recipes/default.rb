@@ -18,7 +18,6 @@ end
 package "nodejs"
 
 user "caaredirect" do
-  action :create
   home "/home/caaredirect"
   shell "/bin/bash"
   supports :manage_home => true
@@ -36,7 +35,6 @@ end
   git "/home/caaredirect/#{service_name}" do
     repository "git://github.com/metabrainz/coverart_redirect.git"
     revision node['caa-redirect'][server.to_sym][:revision]
-    action :sync
     user "caaredirect"
   end
 
