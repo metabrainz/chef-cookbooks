@@ -45,6 +45,7 @@ end
       :config => node['caa-redirect'],
       :server => server
     )
+    notifies :restart, "daemontools_service[#{service_name}]"
   end
 
   script "compile_resources" do
