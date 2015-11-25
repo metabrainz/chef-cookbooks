@@ -1,11 +1,13 @@
 include_recipe "apt"
 include_recipe "daemontools"
 
+package "fabric"
+package "git"
+package "nodejs"
 package "python-cherrypy3"
 package "python-psycopg2"
 package "python-sqlalchemy"
 package "python-werkzeug"
-package "fabric"
 
 apt_repository "nodejs" do
   uri "https://deb.nodesource.com/node_4.x"
@@ -14,8 +16,6 @@ apt_repository "nodejs" do
   keyserver "keyserver.ubuntu.com"
   key "1655a0ab68576280"
 end
-
-package "nodejs"
 
 user "caaredirect" do
   home "/home/caaredirect"
@@ -31,7 +31,6 @@ end
 ['production', 'staging'].each do |server|
   service_name = "coverart_redirect-#{server}"
 
-  package "git"
   git "/home/caaredirect/#{service_name}" do
     repository "git://github.com/metabrainz/coverart_redirect.git"
     revision node['caa-redirect'][server.to_sym][:revision]
