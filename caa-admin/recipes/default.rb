@@ -32,7 +32,7 @@ template '/home/caaadmin/svc-caa-admin/devel.cfg' do
   owner 'caaadmin'
   group 'caaadmin'
   mode '0755'
-  notifies :hup, 'daemontools_service[caa-admin]'
+  notifies :term, 'daemontools_service[caa-admin]'
 end
 
 daemontools_service "caa-admin" do
