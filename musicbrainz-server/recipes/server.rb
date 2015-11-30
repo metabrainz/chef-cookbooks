@@ -19,6 +19,16 @@ script "make_po" do
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
 end
 
+script "install_new_npm" do
+  user "root"
+  interpreter "bash"
+  cwd "/root"
+  environment "HOME" => "/root"
+  code "npm install -g npm@3.5.1"
+  action :nothing
+  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
+end
+
 script "compile_resources" do
   user "musicbrainz"
   interpreter "bash"
