@@ -17,6 +17,7 @@ script "make_po" do
     EOH
   action :nothing
   subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
+  notifies :run, "script[install_new_npm]"
 end
 
 script "install_new_npm" do
@@ -26,7 +27,7 @@ script "install_new_npm" do
   environment "HOME" => "/root"
   code "npm install -g npm@3.5.1"
   action :nothing
-  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
+  notifies :run, "script[compile_resources]"
 end
 
 script "compile_resources" do
@@ -40,7 +41,9 @@ script "compile_resources" do
     ./script/compile_resources.sh
     EOH
   action :nothing
-  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
+  notifies :hup, "daemontools_service[musicbrainz-server]"
+  notifies :hup, "daemontools_service[musicbrainz-ws]"
+  notifies :restart, "daemontools_service[musicbrainz-server-renderer]"
 end
 
 service "svscan" do
@@ -53,7 +56,6 @@ daemontools_service "musicbrainz-server-renderer" do
   template "musicbrainz-server-renderer"
   variables :port => node['musicbrainz-server']['dbdefs']['renderer_port']
   action [:enable, :up]
-  subscribes :restart, "git[/home/musicbrainz/musicbrainz-server]"
   log false
 end
 
@@ -62,8 +64,6 @@ daemontools_service "musicbrainz-server" do
   template "musicbrainz-server"
   variables :nproc => node['musicbrainz-server']['nproc-website']
   action [:enable, :up]
-  subscribes :hup, "git[/home/musicbrainz/musicbrainz-server]"
-  subscribes :hup, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
   log true
 end
 
@@ -72,8 +72,6 @@ daemontools_service "musicbrainz-ws" do
   template "musicbrainz-ws"
   variables :nproc => node['musicbrainz-server']['nproc-ws']
   action [:enable, :up]
-  subscribes :hup, "git[/home/musicbrainz/musicbrainz-server]"
-  subscribes :hup, "template[/home/musicbrainz/musicbrainz-server/lib/DBDefs.pm]"
   log true
 end
 
