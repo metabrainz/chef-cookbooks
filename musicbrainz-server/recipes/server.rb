@@ -35,6 +35,7 @@ script "compile_resources" do
   cwd "/home/musicbrainz/musicbrainz-server"
   environment "HOME" => "/home/musicbrainz"
   code <<-EOH
+    rm -r node_modules
     npm install
     ./script/compile_resources.sh
     EOH
