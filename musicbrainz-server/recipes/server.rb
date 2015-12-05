@@ -6,46 +6,6 @@ package "libcatalyst-plugin-autorestart-perl"
 package "libcatalyst-plugin-errorcatcher-perl"
 package "libstarlet-perl"
 
-script "make_po" do
-  user "musicbrainz"
-  interpreter "bash"
-  cwd "/home/musicbrainz/musicbrainz-server"
-  environment "HOME" => "/home/musicbrainz"
-  code <<-EOH
-    make -C po all_quiet
-    make -C po deploy
-    EOH
-  action :nothing
-  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
-  notifies :run, "script[install_new_npm]"
-end
-
-script "install_new_npm" do
-  user "root"
-  interpreter "bash"
-  cwd "/root"
-  environment "HOME" => "/root"
-  code "npm install -g npm@3.5.1"
-  action :nothing
-  notifies :run, "script[compile_resources]"
-end
-
-script "compile_resources" do
-  user "musicbrainz"
-  interpreter "bash"
-  cwd "/home/musicbrainz/musicbrainz-server"
-  environment "HOME" => "/home/musicbrainz"
-  code <<-EOH
-    rm -r node_modules
-    npm install
-    ./script/compile_resources.sh
-    EOH
-  action :nothing
-  notifies :hup, "daemontools_service[musicbrainz-server]"
-  notifies :hup, "daemontools_service[musicbrainz-ws]"
-  notifies :restart, "daemontools_service[musicbrainz-server-renderer]"
-end
-
 service "svscan" do
   action :start
   provider Chef::Provider::Service::Upstart
@@ -114,4 +74,44 @@ end
 nginx_site "nginxstatus" do
   action :nothing
   subscribes :enable, "template[/etc/nginx/sites-available/nginxstatus]";
+end
+
+script "make_po" do
+  user "musicbrainz"
+  interpreter "bash"
+  cwd "/home/musicbrainz/musicbrainz-server"
+  environment "HOME" => "/home/musicbrainz"
+  code <<-EOH
+    make -C po all_quiet
+    make -C po deploy
+    EOH
+  action :nothing
+  subscribes :run, "git[/home/musicbrainz/musicbrainz-server]"
+  notifies :run, "script[install_new_npm]"
+end
+
+script "install_new_npm" do
+  user "root"
+  interpreter "bash"
+  cwd "/root"
+  environment "HOME" => "/root"
+  code "npm install -g npm@3.5.1"
+  action :nothing
+  notifies :run, "script[compile_resources]"
+end
+
+script "compile_resources" do
+  user "musicbrainz"
+  interpreter "bash"
+  cwd "/home/musicbrainz/musicbrainz-server"
+  environment "HOME" => "/home/musicbrainz"
+  code <<-EOH
+    rm -r node_modules
+    npm install
+    ./script/compile_resources.sh
+    EOH
+  action :nothing
+  notifies :hup, "daemontools_service[musicbrainz-server]"
+  notifies :hup, "daemontools_service[musicbrainz-ws]"
+  notifies :restart, "daemontools_service[musicbrainz-server-renderer]"
 end
