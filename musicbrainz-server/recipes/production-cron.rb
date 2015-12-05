@@ -20,3 +20,11 @@ cron "hourly" do
     user "musicbrainz"
     mailto "root"
 end
+
+cron "hourly-sitemaps" do
+    minute "30"
+    command "/home/musicbrainz/musicbrainz-server/admin/cron/hourly-sitemaps.sh"
+    action :create
+    user "musicbrainz"
+    mailto "root"
+end
