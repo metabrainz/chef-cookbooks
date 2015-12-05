@@ -111,7 +111,18 @@ script "compile_resources" do
     ./script/compile_resources.sh
     EOH
   action :nothing
-  notifies :hup, "daemontools_service[musicbrainz-server]"
-  notifies :hup, "daemontools_service[musicbrainz-ws]"
-  notifies :restart, "daemontools_service[musicbrainz-server-renderer]"
+  notifies :run, "script[kick_services]"
+end
+
+script "kick_services" do
+  user "root"
+  interpreter "bash"
+  cwd "/root"
+  environment "HOME" => "/root"
+  code <<-EOH
+    svc -h /etc/service/musicbrainz-server
+    svc -h /etc/service/musicbrainz-ws
+    svc -t /etc/service/musicbrainz-server-renderer
+    EOH
+  action :nothing
 end
