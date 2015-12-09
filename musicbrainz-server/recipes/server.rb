@@ -95,7 +95,7 @@ script "install_new_npm" do
   interpreter "bash"
   cwd "/root"
   environment "HOME" => "/root"
-  code "npm install -g npm@3.5.1"
+  code "npm install -g npm@3.5.2"
   action :nothing
   notifies :run, "script[compile_resources]"
 end
