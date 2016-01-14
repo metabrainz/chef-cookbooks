@@ -1,16 +1,16 @@
 log_format proxylog
-	'$msec'
-	' $http_x_mb_remote_addr'
-	' "$request"'
-	' $status'
-	' $bytes_sent'
-	' z=$gzip_ratio'
-	' up=$upstream_addr'
-	' ms=$request_time'
-	' ums=$upstream_response_time'
-	' ol=$sent_http_location'
-	' h=$http_host'
-	;
+    '$msec'
+    ' $http_x_mb_remote_addr'
+    ' "$request"'
+    ' $status'
+    ' $bytes_sent'
+    ' z=$gzip_ratio'
+    ' up=$upstream_addr'
+    ' ms=$request_time'
+    ' ums=$upstream_response_time'
+    ' ol=$sent_http_location'
+    ' h=$http_host'
+    ;
 
 upstream mbserver {
     server unix:/tmp/musicbrainz-server.socket;
@@ -28,14 +28,14 @@ server {
     access_log  /var/log/nginx/001-musicbrainz.proxy.log proxylog;
     error_log   /var/log/nginx/001-musicbrainz.error.log notice;
 
-	gzip  on;
-	gzip_http_version 1.0;
-	gzip_comp_level 6;
-	gzip_proxied any;
-	gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-	# make sure gzip does not lose large gzipped js or css files
-	# see http://blog.leetsoft.com/2007/7/25/nginx-gzip-ssl
-	gzip_buffers 16 8k;
+    gzip  on;
+    gzip_http_version 1.0;
+    gzip_comp_level 6;
+    gzip_proxied any;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    # make sure gzip does not lose large gzipped js or css files
+    # see http://blog.leetsoft.com/2007/7/25/nginx-gzip-ssl
+    gzip_buffers 16 8k;
 
     location /static/ {
         root /home/musicbrainz/musicbrainz-server/root;
