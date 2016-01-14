@@ -12,6 +12,14 @@ log_format proxylog
 	' h=$http_host'
 	;
 
+upstream mbserver {
+    server unix:/tmp/musicbrainz-server.socket;
+}
+
+upstream mbws {
+    server unix:/tmp/musicbrainz-ws.socket;
+}
+
 server {
     listen <%= @listen_address %>;
     server_name <%= @server_name %>;
@@ -67,7 +75,7 @@ cation/xml application/xml+rss text/javascript;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $http_x_mb_remote_addr;
-        proxy_pass http://unix:/tmp/musicbrainz-server.socket:;
+        proxy_pass http://mbserver;
 
         gzip  on;
         gzip_http_version 1.0;
@@ -83,7 +91,7 @@ cation/xml application/xml+rss text/javascript;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $http_x_mb_remote_addr;
-        proxy_pass http://unix:/tmp/musicbrainz-ws.socket:;
+        proxy_pass http://mbws;
 
         gzip  on;
         gzip_http_version 1.0;
