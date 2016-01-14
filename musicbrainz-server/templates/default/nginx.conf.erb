@@ -1,20 +1,20 @@
+log_format proxylog
+	'$msec'
+	' $http_x_mb_remote_addr'
+	' "$request"'
+	' $status'
+	' $bytes_sent'
+	' z=$gzip_ratio'
+	' up=$upstream_addr'
+	' ms=$request_time'
+	' ums=$upstream_response_time'
+	' ol=$sent_http_location'
+	' h=$http_host'
+	;
+
 server {
     listen <%= @listen_address %>;
     server_name <%= @server_name %>;
-
-    log_format proxylog
-        '$msec'
-        ' $http_x_mb_remote_addr'
-        ' "$request"'
-        ' $status'
-        ' $bytes_sent'
-        ' z=$gzip_ratio'
-        ' up=$upstream_addr'
-        ' ms=$request_time'
-        ' ums=$upstream_response_time'
-        ' ol=$sent_http_location'
-        ' h=$http_host'
-        ;
 
     access_log  /var/log/nginx/001-musicbrainz.access.log;
     access_log  /var/log/nginx/001-musicbrainz.proxy.log proxylog;
