@@ -106,7 +106,7 @@ script "compile_resources" do
   cwd "/home/musicbrainz/musicbrainz-server"
   environment "HOME" => "/home/musicbrainz"
   code <<-EOH
-    npm install
+    npm install --only=production
     ./script/compile_resources.sh
     EOH
   action :nothing
