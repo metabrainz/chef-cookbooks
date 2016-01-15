@@ -16,6 +16,14 @@ logster_log "/var/log/nginx/001-musicbrainz.access.log" do
     python_path ["/home/musicbrainz/logster"]
 end
 
+logster_log "/var/log/nginx/001-musicbrainz.proxy.log" do
+    prefix "logster.#{node['hostname']}.mbserver.proxy"
+    output "graphite"
+    graphite_host node['graphite']['host']
+    parser "musicbrainz.logster.NginxProxy.NginxProxy"
+    python_path ["/home/musicbrainz/logster"]
+end
+
 # logster needs to be able to read nginx logs
 group "adm" do
     append true
