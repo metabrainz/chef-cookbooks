@@ -28,6 +28,11 @@ server {
     access_log  /var/log/nginx/001-musicbrainz.proxy.log proxylog;
     error_log   /var/log/nginx/001-musicbrainz.error.log notice;
 
+    # http://nginx.org/en/docs/http/ngx_http_core_module.html#large_client_header_buffers
+    # prevent 414 on large requests, size of buffer have to be at least the one on gateway proxy
+    # 'upstream sent no valid HTTP/1.0 header' errors may appear if upstream buffers are smaller than proxy ones
+    large_client_header_buffers 8 16k;
+
     gzip  on;
     gzip_http_version 1.0;
     gzip_comp_level 6;
