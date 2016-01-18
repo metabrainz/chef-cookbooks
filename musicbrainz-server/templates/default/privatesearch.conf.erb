@@ -47,20 +47,19 @@ server {
     proxy_set_header Connection "";
     keepalive_timeout 75 20;
 
-# FIXME
-#    location /.proxy/ {
-#        root /usr/local/nginx/htdocs;
-#        allow all;
-#        expires 24h;
-#    }
-#
-#    error_page 401 /.proxy/401.html;
-#    error_page 403 /.proxy/403.html;
-#    error_page 404 /.proxy/404.html;
-#    error_page 502 /.proxy/502.html;
-#    error_page 503 /.proxy/503.html;
-#    error_page 504 /.proxy/504.html;
-#
+    location /.proxy/ {
+        root /home/musicbrainz/htdocs;
+        allow all;
+        expires 24h;
+    }
+
+    error_page 401 /.proxy/401.html;
+    error_page 403 /.proxy/403.html;
+    error_page 404 /.proxy/404.html;
+    error_page 502 /.proxy/502.html;
+    error_page 503 /.proxy/503.html;
+    error_page 504 /.proxy/504.html;
+
     location / {
         # error_page 503 /.proxy/503-downtime.html;
         # return 503;

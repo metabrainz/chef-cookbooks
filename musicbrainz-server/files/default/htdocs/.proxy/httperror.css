@@ -1,0 +1,26 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  width: 600px;
+  min-height: 375px;
+  position: relative;
+  font-family: Verdana, Helvetica, sans-serif;
+}
+
+#bg {
+  opacity: 0.1;
+  height: 375px;
+  height: 1em;
+  overflow: visible;
+}
+
+body > * {
+  text-align: center;
+}
+
+#http {
+  margin-top: 6em;
+  font-style: italic;
+}

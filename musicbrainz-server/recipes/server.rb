@@ -87,6 +87,14 @@ nginx_site "privatesearch" do
   subscribes :enable, "template[/etc/nginx/sites-available/privatesearch]";
 end
 
+remote_directory '/home/musicbrainz/htdocs' do
+  source 'htdocs'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
 script "make_po" do
   user "musicbrainz"
   interpreter "bash"
