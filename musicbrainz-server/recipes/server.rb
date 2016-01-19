@@ -66,6 +66,12 @@ template "/etc/nginx/sites-available/nginxstatus" do
   notifies :reload, "service[nginx]"
 end
 
+template "/etc/nginx/sites-available/privatesearch" do
+  source "privatesearch.conf.erb"
+  user "root"
+  notifies :reload, "service[nginx]"
+end
+
 nginx_site "musicbrainz" do
   action :nothing
   subscribes :enable, "template[/etc/nginx/sites-available/musicbrainz]";
@@ -74,6 +80,19 @@ end
 nginx_site "nginxstatus" do
   action :nothing
   subscribes :enable, "template[/etc/nginx/sites-available/nginxstatus]";
+end
+
+nginx_site "privatesearch" do
+  action :nothing
+  subscribes :enable, "template[/etc/nginx/sites-available/privatesearch]";
+end
+
+remote_directory '/home/musicbrainz/htdocs' do
+  source 'htdocs'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
 end
 
 script "make_po" do

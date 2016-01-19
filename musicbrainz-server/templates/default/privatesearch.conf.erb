@@ -1,0 +1,75 @@
+upstream lucene {
+    keepalive 256;
+
+    # jetty #
+    # dora
+    server 10.1.1.21:8081 weight=16 max_fails=10 fail_timeout=10s;
+    # roobarb
+    server 10.1.1.22:8081 weight=16 max_fails=10 fail_timeout=10s;
+
+    # tomcat #
+    # dora
+    # server 10.1.1.21:8080 weight=16 max_fails=10 fail_timeout=10s;
+    # roobarb
+    # server 10.1.1.22:8080 weight=16 max_fails=10 fail_timeout=10s;
+}
+
+server {
+    listen 127.0.0.1:777;
+    listen 127.0.0.1:776;
+
+    access_log /var/log/nginx/search-private-access.log proxylog;
+    access_log /var/log/nginx/search-private-combined.log combined;
+    error_log /var/log/nginx/search-private-error.log notice;
+
+    # Default is mb_full_server etc
+    proxy_set_header Host $host;
+
+    # Replaces any existing header of this name
+    proxy_set_header X-MB-Remote-Addr $remote_addr;
+
+    # Pass through response header, instead of supplying our own
+    proxy_pass_header Server;
+
+    # Block response headers (from upstream, or self?)
+    # proxy_hide_header Via;
+
+    proxy_connect_timeout 3;
+    proxy_read_timeout 5;
+    proxy_next_upstream error timeout invalid_header;
+
+    # enable proxy buffering to cut down on noise in the log
+    proxy_buffer_size 8k;
+    proxy_buffering on;
+    proxy_buffers 64 8k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    keepalive_timeout 75 20;
+
+    location /.proxy/ {
+        root /home/musicbrainz/htdocs;
+        allow all;
+        expires 24h;
+    }
+
+    error_page 401 /.proxy/401.html;
+    error_page 403 /.proxy/403.html;
+    error_page 404 /.proxy/404.html;
+    error_page 502 /.proxy/502.html;
+    error_page 503 /.proxy/503.html;
+    error_page 504 /.proxy/504.html;
+
+    location / {
+        # error_page 503 /.proxy/503-downtime.html;
+        # return 503;
+        proxy_pass http://lucene;
+        proxy_redirect off;
+    }
+
+    # Copying http://wiki.codemongers.com/NginxFullExample2
+    client_header_timeout  3m;
+    client_body_timeout    3m;
+    send_timeout           3m;
+
+}
