@@ -211,4 +211,20 @@ sub RENDERER_HOST { '<%= @dbdefs['renderer_host'] %>' }
 sub RENDERER_PORT { <%= @dbdefs['renderer_port'] %> }
 <%- end -%>
 
+<% if @dbdefs['discourse_server'] -%>
+sub DISCOURSE_SERVER { '<%= @dbdefs['discourse_server'] %>' }
+<%- end -%>
+
+<% if @dbdefs['discourse_api_key'] -%>
+sub DISCOURSE_API_KEY { '<%= @dbdefs['discourse_api_key'] %>' }
+<%- end -%>
+
+<% if @dbdefs['discourse_api_username'] -%>
+sub DISCOURSE_API_USERNAME { '<%= @dbdefs['discourse_api_username'] %>' }
+<%- end -%>
+
+<% if @dbdefs['discourse_sso_secret'] -%>
+sub DISCOURSE_SSO_SECRET { '<%= @dbdefs['discourse_sso_secret'] %>' }
+<%- end -%>
+
 1;
