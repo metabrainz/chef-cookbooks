@@ -224,7 +224,7 @@ sub DISCOURSE_API_USERNAME { '<%= @dbdefs['discourse_api_username'] %>' }
 <%- end -%>
 
 <% if @dbdefs['discourse_sso_secret'] -%>
-sub DISCOURSE_SSO_SECRET { '<%= @dbdefs['discourse_sso_secret'].gsub("'", "\\'") %>' }
+sub DISCOURSE_SSO_SECRET { '<%= @dbdefs['discourse_sso_secret'].gsub("'", %q(\\\')) %>' }
 <%- end -%>
 
 1;
