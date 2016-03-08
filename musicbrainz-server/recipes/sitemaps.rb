@@ -12,6 +12,12 @@ package "postgresql-server-dev-9.4"
 package "postgresql-contrib-9.4"
 package "postgresql-plperl-9.4"
 
+template "/etc/postgresql/9.4/main/pg_hba.conf" do
+  source "sitemaps-pg_hba.conf.erb"
+  owner "postgres"
+  mode "640"
+end
+
 user "setting postgres password" do
   username "postgres"
   password node['musicbrainz-server']['sitemaps']['postgres_password']
