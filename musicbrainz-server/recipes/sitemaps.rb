@@ -18,6 +18,13 @@ template "/etc/postgresql/9.4/main/pg_hba.conf" do
   mode "640"
 end
 
+# needed for :modify password support
+package "libshadow-ruby1.8"
+
+chef_gem "ruby-shadow" do
+  action :install
+end
+
 user "setting postgres password" do
   username "postgres"
   password node['musicbrainz-server']['sitemaps']['postgres_password']
