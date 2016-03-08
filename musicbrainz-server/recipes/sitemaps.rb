@@ -19,7 +19,7 @@ template "/etc/postgresql/9.4/main/pg_hba.conf" do
 end
 
 # needed for :modify password support
-package "libshadow-ruby1.8"
+package "ruby-dev"
 
 chef_gem "ruby-shadow" do
   action :install
@@ -35,7 +35,7 @@ script "createuser sitemaps" do
   user "postgres"
   interpreter "bash"
   cwd "/home/postgres"
-  code "createuser sitemaps"
+  code "psql postgres -tAc \"SELECT 1 FROM pg_roles WHERE rolname='sitemaps'\" | grep -q 1 || createuser sitemaps"
   action :run
 end
 
@@ -59,6 +59,7 @@ template "/home/sitemaps/musicbrainz-server/lib/DBDefs.pm" do
   source "sitemaps-DBDefs.pm.erb"
   owner "sitemaps"
   mode "644"
+  variables "dbdefs" => node['musicbrainz-server']['dbdefs']
 end
 
 cron "daily" do
@@ -96,4 +97,9 @@ daemontools_service "musicbrainz-server" do
   template "sitemaps-musicbrainz-server"
   action [:enable, :up]
   log false
+end
+
+link "/etc/service/musicbrainz-server/mb_server" do
+  to "/home/sitemaps/musicbrainz-server"
+  owner "sitemaps"
 end
