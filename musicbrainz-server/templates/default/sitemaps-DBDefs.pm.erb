@@ -1,0 +1,38 @@
+package DBDefs;
+
+use warnings;
+use parent 'DBDefs::Default';
+use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::DatabaseConnectionFactory;
+
+MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
+    READWRITE => {
+        database => "sitemaps_db",
+        username => "sitemaps",
+        password => "",
+    },
+    TEST => {
+        database => "musicbrainz_test",
+        username => "musicbrainz",
+        password => "musicbrainz",
+    },
+    READONLY => {
+        database => "sitemaps_db",
+        username => "sitemaps",
+        password => "",
+    },
+    SYSTEM => {
+        database => "template1",
+        username => "postgres",
+    },
+);
+
+sub CATALYST_DEBUG { 0 }
+sub DB_SCHEMA_SEQUENCE { 22 }
+sub DEVELOPMENT_SERVER { 0 }
+sub RENDERER_HOST { 'localhost' }
+sub REPLICATION_ACCESS_TOKEN { '<%= @dbdefs['replication_access_token'] %>' }
+sub REPLICATION_TYPE { RT_SLAVE }
+sub WEB_SERVER { 'localhost:5000' }
+
+1;

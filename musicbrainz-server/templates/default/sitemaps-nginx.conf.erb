@@ -1,0 +1,26 @@
+server {
+    listen 0.0.0.0:81;
+
+    root /home/sitemaps/musicbrainz-server/root/static/sitemaps;
+
+    location / {
+    }
+
+    log_format proxylog
+    '$msec'
+    ' $remote_addr'
+    ' "$request"'
+    ' $status'
+    ' $bytes_sent'
+    ' z=$gzip_ratio'
+    ' up=$upstream_addr'
+    ' ms=$request_time'
+    ' ums=$upstream_response_time'
+    ' ol=$sent_http_location'
+    ' h=$http_host'
+    ;
+
+    access_log /var/log/nginx/sitemaps-full-access.log proxylog;
+    access_log /var/log/nginx/sitemaps-full-combined.log combined;
+    error_log /var/log/nginx/sitemaps-full-error.log notice;
+}

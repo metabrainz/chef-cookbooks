@@ -1,0 +1,7 @@
+#!/bin/bash
+echo starting
+exec 2>&1
+set -e
+cd mb_server
+umask 022
+exec setuidgid sitemaps plackup -Ilib
