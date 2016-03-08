@@ -96,7 +96,7 @@ daemontools_service "musicbrainz-server" do
   directory "/home/sitemaps/svc-musicbrainz-server"
   template "sitemaps-musicbrainz-server"
   action [:enable, :up]
-  log false
+  log true
 end
 
 link "/etc/service/musicbrainz-server/mb_server" do
