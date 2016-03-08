@@ -71,10 +71,16 @@ cron "hourly" do
   mailto "root"
 end
 
+include_recipe "nginx"
 template "/etc/nginx/sites-available/sitemaps" do
   source "sitemaps-nginx.conf.erb"
   user "root"
   notifies :reload, "service[nginx]"
+end
+
+nginx_site "sitemaps" do
+  action :nothing
+  subscribes :enable, "template[/etc/nginx/sites-available/sitemaps]";
 end
 
 package "libplack-perl"
