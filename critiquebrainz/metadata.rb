@@ -1,0 +1,7 @@
+depends 'apt', '~> 3.0.0'
+depends 'firewall', '~> 2.5.0'
+depends 'nginx', '~> 1.7.0'
+depends 'git', '~> 4.3.7'
+depends 'postgresql', '~> 4.0.2'
+depends 'poise-python', '~> 1.2.1'
+depends 'nodejs', '~> 2.4.4'
