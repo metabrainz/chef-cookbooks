@@ -98,6 +98,15 @@ server {
         add_header Access-Control-Allow-Origin *;
     }
 
+    location ~* ^/internal/renderer/(.*?)/(.*) {
+        internal;
+        set $renderer_host $1;
+        set $renderer_path $2;
+        set $renderer_url http://$renderer_host/$renderer_path?$args;
+        proxy_pass $renderer_url;
+        add_header Access-Control-Allow-Origin *;
+    }
+
     include /home/musicbrainz/musicbrainz-server/admin/nginx/mbserver-rewrites.conf;
 }
 
