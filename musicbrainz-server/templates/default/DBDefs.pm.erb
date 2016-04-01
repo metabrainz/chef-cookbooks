@@ -211,6 +211,8 @@ sub RENDERER_HOST { '<%= @dbdefs['renderer_host'] %>' }
 sub RENDERER_PORT { <%= @dbdefs['renderer_port'] %> }
 <%- end -%>
 
+sub RENDERER_X_ACCEL_REDIRECT { <%= (@dbdefs['renderer_x_accel_redirect'] && 1) || 0 %> }
+
 <% if @dbdefs['discourse_server'] -%>
 sub DISCOURSE_SERVER { '<%= @dbdefs['discourse_server'] %>' }
 <%- end -%>
