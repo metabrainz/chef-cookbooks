@@ -1,0 +1,4 @@
+#!/bin/bash
+echo Starting
+exec 2>&1 \
+  /usr/sbin/pgbouncer /etc/pgbouncer/pgbouncer.ini
